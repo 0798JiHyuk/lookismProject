@@ -2,10 +2,10 @@ package org.ict.lookism.board.mapper;
 
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
-import org.ict.first.board.entity.Board;
-import org.ict.first.common.Paging;
-import org.ict.first.common.Search;
-import org.ict.first.common.SearchDate;
+import org.ict.lookism.board.vo.Board;
+import org.ict.lookism.common.Paging;
+import org.ict.lookism.common.Search;
+import org.ict.lookism.common.SearchDate;
 
 import java.util.List;
 
