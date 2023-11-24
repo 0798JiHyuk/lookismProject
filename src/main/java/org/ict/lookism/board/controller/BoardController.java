@@ -1,5 +1,6 @@
 package org.ict.lookism.board.controller;
 
+import jakarta.servlet.http.HttpServletRequest;
 import org.ict.lookism.board.service.BoardService;
 import org.ict.lookism.board.vo.Board;
 import org.ict.lookism.board.service.BoardServiceImpl;
@@ -18,7 +19,6 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
-import javax.servlet.http.HttpServletRequest;
 import java.io.File;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
@@ -99,7 +99,7 @@ public class BoardController {
 
 	//새 게시원글 등록 요청 처리용 (파일 업로드 기능 추가)
 	@RequestMapping(value="binsert.do", method=RequestMethod.POST)
-	public String boardInsertMethod(Board board, Model model, HttpServletRequest request, 
+	public String boardInsertMethod(Board board, Model model, HttpServletRequest request,
 			@RequestParam(name="upfile", required=false) MultipartFile mfile) {
 		logger.info("binsert.do : " + board);
 		
