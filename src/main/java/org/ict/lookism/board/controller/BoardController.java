@@ -14,10 +14,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -27,7 +24,7 @@ import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.util.ArrayList;
 
-@Controller
+@RestController
 //@RestController
 public class BoardController {
 	//이 컨트롤러 안의 메소드들이 구동되는지, 값이 잘 전달되었는지 확인을 위한 로그 객체를 생성
@@ -39,6 +36,7 @@ public class BoardController {
 	//요청 처리용 ---------------------------------------------------------------
 	@RequestMapping(value="btop3.do", method=RequestMethod.POST)
 	@ResponseBody
+	@GetMapping
 	public String boardRCountTop3Method() throws UnsupportedEncodingException {
 		return "";
 	}

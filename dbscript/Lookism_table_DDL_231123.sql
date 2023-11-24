@@ -182,8 +182,7 @@ CREATE TABLE MEMBER (
                         USERID raw(16) DEFAULT sys_guid() NOT NULL, /* 회원ID */
                         USERPWD VARCHAR(255) NOT NULL, /* 회원비밀번호 */
                         USERNAME VARCHAR(255) NOT NULL, /* 이름 */
-                        USERBIRTH DATE DEFAULT
-                                           NOT NULL, /* 생일 */
+                        USERBIRTH DATE NOT NULL, /* 생일 */
                         USERENROLLDATE DATE DEFAULT sysdate NOT NULL, /* 가입일 */
                         USEREMAIL VARCHAR(40) NOT NULL, /* 이메일 */
                         USERHEIGHT INTEGER NOT NULL, /* 키 */
