@@ -4,6 +4,7 @@ import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.ict.lookism.chat.service.ChatService;
 import org.ict.lookism.chat.vo.Chat;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
@@ -16,6 +17,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/chat")
 public class ChatController {
+    @Autowired
     private ChatService chatService;
 
     private SimpMessagingTemplate template;
