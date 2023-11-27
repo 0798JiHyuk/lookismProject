@@ -1,8 +1,8 @@
 package org.ict.lookism.chatroomuser.service;
 
 import org.ict.lookism.Member.vo.Member;
-import org.ict.lookism.chatroomuser.mapper.ChatRoomUserMapper;
-import org.ict.lookism.chatroomuser.vo.ChatRoomUser;
+import org.ict.lookism.chatroomuser.repository.ChatRoomUserMapper;
+import org.ict.lookism.chatroomuser.entity.ChatRoomUser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

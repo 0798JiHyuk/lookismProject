@@ -1,8 +1,7 @@
-package org.ict.lookism.chatroom.mapper;
+package org.ict.lookism.chatroom.repository;
 
 import org.apache.ibatis.annotations.Mapper;
-import org.ict.lookism.chat.vo.Chat;
-import org.ict.lookism.chatroom.vo.ChatRoom;
+import org.ict.lookism.chatroom.entity.ChatRoom;
 
 import java.util.List;
 

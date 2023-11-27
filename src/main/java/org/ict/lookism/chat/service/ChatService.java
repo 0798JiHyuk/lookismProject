@@ -1,6 +1,6 @@
 package org.ict.lookism.chat.service;
 
-import org.ict.lookism.chat.vo.Chat;
+import org.ict.lookism.chat.entity.Chat;
 
 import java.sql.Timestamp;
 import java.util.List;

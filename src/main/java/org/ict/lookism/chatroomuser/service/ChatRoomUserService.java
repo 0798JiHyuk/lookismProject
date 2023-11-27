@@ -1,7 +1,7 @@
 package org.ict.lookism.chatroomuser.service;
 
 import org.ict.lookism.Member.vo.Member;
-import org.ict.lookism.chatroomuser.vo.ChatRoomUser;
+import org.ict.lookism.chatroomuser.entity.ChatRoomUser;
 
 import java.util.List;
 

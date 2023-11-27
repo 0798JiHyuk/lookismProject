@@ -1,6 +1,6 @@
 package org.ict.lookism.chatreport.service;
 
-import org.ict.lookism.chatreport.vo.ChatReport;
+import org.ict.lookism.chatreport.entity.ChatReport;
 
 import java.util.List;
 

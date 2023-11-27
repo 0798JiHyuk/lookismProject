@@ -1,7 +1,7 @@
 package org.ict.lookism.chatreport.service;
 
-import org.ict.lookism.chatreport.mapper.ChatReportMapper;
-import org.ict.lookism.chatreport.vo.ChatReport;
+import org.ict.lookism.chatreport.repository.ChatReportMapper;
+import org.ict.lookism.chatreport.entity.ChatReport;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

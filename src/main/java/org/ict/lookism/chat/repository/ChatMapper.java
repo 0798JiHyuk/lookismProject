@@ -1,7 +1,7 @@
-package org.ict.lookism.chat.mapper;
+package org.ict.lookism.chat.repository;
 
 import org.apache.ibatis.annotations.Mapper;
-import org.ict.lookism.chat.vo.Chat;
+import org.ict.lookism.chat.entity.Chat;
 
 import java.sql.Timestamp;
 import java.util.List;
