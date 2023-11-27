@@ -1,7 +1,7 @@
 package org.ict.lookism.chatfriend.service;
 
-import org.ict.lookism.chatfriend.mapper.ChatFriendMapper;
-import org.ict.lookism.chatfriend.vo.ChatFriend;
+import org.ict.lookism.chatfriend.repository.ChatFriendMapper;
+import org.ict.lookism.chatfriend.entity.ChatFriend;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

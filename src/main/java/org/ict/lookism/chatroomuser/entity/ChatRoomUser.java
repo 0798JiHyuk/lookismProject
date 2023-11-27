@@ -1,4 +1,4 @@
-package org.ict.lookism.chatfriend.vo;
+package org.ict.lookism.chatroomuser.entity;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -9,8 +9,9 @@ import java.sql.Timestamp;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class ChatFriend {
+public class ChatRoomUser {
     private String userId;
-    private String userId2;
-    private Timestamp friendDate;
+    private String chatRoomId;
+    private Timestamp entranceTime;
+    private Timestamp exitTime;
 }

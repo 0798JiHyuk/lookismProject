@@ -1,4 +1,4 @@
-package org.ict.lookism.chatroom.vo;
+package org.ict.lookism.chatroom.entity;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

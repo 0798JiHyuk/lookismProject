@@ -1,6 +1,6 @@
 package org.ict.lookism.chatfriend.service;
 
-import org.ict.lookism.chatfriend.vo.ChatFriend;
+import org.ict.lookism.chatfriend.entity.ChatFriend;
 
 import java.util.List;
 

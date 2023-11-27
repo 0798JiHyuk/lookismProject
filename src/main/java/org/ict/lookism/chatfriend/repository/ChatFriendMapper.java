@@ -1,7 +1,7 @@
-package org.ict.lookism.chatfriend.mapper;
+package org.ict.lookism.chatfriend.repository;
 
 import org.apache.ibatis.annotations.Mapper;
-import org.ict.lookism.chatfriend.vo.ChatFriend;
+import org.ict.lookism.chatfriend.entity.ChatFriend;
 
 import java.util.List;
 

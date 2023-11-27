@@ -1,6 +1,6 @@
 package org.ict.lookism.chatroom.service;
 
-import org.ict.lookism.chatroom.vo.ChatRoom;
+import org.ict.lookism.chatroom.entity.ChatRoom;
 
 import java.util.List;
 

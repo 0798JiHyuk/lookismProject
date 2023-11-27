@@ -3,7 +3,7 @@ package org.ict.lookism.files.controller;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.ict.lookism.files.service.FilesService;
-import org.ict.lookism.files.vo.Files;
+import org.ict.lookism.files.entity.Files;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -12,12 +12,13 @@ import org.springframework.web.multipart.MultipartFile;
 import java.sql.Timestamp;
 import java.util.List;
 
-@Slf4j
+@RequiredArgsConstructor
 @RestController
+@CrossOrigin
 @RequestMapping("/files")
 public class FilesController {
 
-    private FilesService filesService;
+    private final FilesService filesService;
 
     @GetMapping
     public ResponseEntity<List<Files>> selectAllList() throws Exception{

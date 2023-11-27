@@ -2,18 +2,11 @@ package org.ict.lookism.board.controller;
 
 import jakarta.servlet.http.HttpServletRequest;
 import org.ict.lookism.board.service.BoardService;
-import org.ict.lookism.board.vo.Board;
-import org.ict.lookism.board.service.BoardServiceImpl;
-import org.ict.lookism.common.FileNameChange;
-import org.ict.lookism.common.Paging;
-import org.ict.lookism.common.Search;
+import org.ict.lookism.board.entity.Board;
 import org.ict.lookism.common.SearchDate;
-import org.json.simple.JSONArray;
-import org.json.simple.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -21,8 +14,6 @@ import org.springframework.web.servlet.ModelAndView;
 
 import java.io.File;
 import java.io.UnsupportedEncodingException;
-import java.net.URLEncoder;
-import java.util.ArrayList;
 
 @RestController
 //@RestController

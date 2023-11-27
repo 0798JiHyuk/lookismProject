@@ -1,9 +1,7 @@
 package org.ict.lookism.chat.service;
 
-import lombok.NoArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
-import org.ict.lookism.chat.mapper.ChatMapper;
-import org.ict.lookism.chat.vo.Chat;
+import org.ict.lookism.chat.repository.ChatMapper;
+import org.ict.lookism.chat.entity.Chat;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

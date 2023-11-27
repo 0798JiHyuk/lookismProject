@@ -2,7 +2,7 @@ package org.ict.lookism.chatfriend.controller;
 
 import lombok.extern.slf4j.Slf4j;
 import org.ict.lookism.chatfriend.service.ChatFriendService;
-import org.ict.lookism.chatfriend.vo.ChatFriend;
+import org.ict.lookism.chatfriend.entity.ChatFriend;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
