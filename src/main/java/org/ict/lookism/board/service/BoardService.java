@@ -1,6 +1,6 @@
 package org.ict.lookism.board.service;
 
-import org.ict.lookism.board.vo.Board;
+import org.ict.lookism.board.entity.Board;
 import org.ict.lookism.common.Paging;
 import org.ict.lookism.common.Search;
 import org.ict.lookism.common.SearchDate;

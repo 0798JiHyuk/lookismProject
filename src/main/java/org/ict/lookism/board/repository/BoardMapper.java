@@ -1,18 +1,17 @@
-package org.ict.lookism.board.mapper;
+package org.ict.lookism.board.repository;
 
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
-import org.ict.lookism.board.vo.Board;
+import org.ict.lookism.board.entity.Board;
 import org.ict.lookism.common.Paging;
 import org.ict.lookism.common.Search;
 import org.ict.lookism.common.SearchDate;
 
 import java.util.List;
 
-@Mapper
 public interface BoardMapper {  //클래스명과 매퍼 xml 파일명이 같아야 함
 	//간단한 쿼리문일 때는 어노테이션 방식이 편함
-	@Select("select sysdate from dual")
+//	@Select("select sysdate from dual")
 	public String getTime();
 	
 	//복잡한 쿼리문일 때는 xml 방식이 필요함
