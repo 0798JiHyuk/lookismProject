@@ -21,7 +21,7 @@ public class ChatRoomController {
         return null;
     }
 
-    @PutMapping("/{chatRoomId")
+    @PutMapping("/{chatRoomId}")
     public ResponseEntity<ChatRoom> updateChatRoom(ChatRoom chatRoom){
         return null;
     }
