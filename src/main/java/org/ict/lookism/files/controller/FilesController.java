@@ -1,9 +1,8 @@
 package org.ict.lookism.files.controller;
 
 import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
-import org.ict.lookism.files.service.FilesService;
 import org.ict.lookism.files.entity.Files;
+import org.ict.lookism.files.service.FilesService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -57,7 +56,7 @@ public class FilesController {
     public ResponseEntity<byte[]> download(String fileId) throws Exception {
         return null;
     }
-    @PostMapping(value = "/upload", produces = "text/plain;charset=utf-8")
+    @PostMapping(value = "/upload")
     public ResponseEntity<String> uploadFile(MultipartFile file) throws Exception{
         return new ResponseEntity<String>("OK", HttpStatus.CREATED);
     }
