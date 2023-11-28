@@ -14,7 +14,7 @@ import java.util.List;
 @Service
 @RequiredArgsConstructor
 public class CoinService {
-    private final CoinRepository coinRepository;
+    private CoinRepository coinRepository;
 
 	public int selectListCount(String userId){
         return 0;
