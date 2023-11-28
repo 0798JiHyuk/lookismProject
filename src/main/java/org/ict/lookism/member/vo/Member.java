@@ -1,4 +1,4 @@
-package org.ict.lookism.Member.vo;
+package org.ict.lookism.member.vo;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
