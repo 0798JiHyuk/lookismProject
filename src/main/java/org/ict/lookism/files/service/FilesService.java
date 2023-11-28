@@ -5,9 +5,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.ict.lookism.files.entity.Files;
 import org.ict.lookism.files.repository.FilesRepository;
 import org.ict.lookism.files.repository.FilesRepositoryCustom;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.sql.Timestamp;
 import java.util.List;
