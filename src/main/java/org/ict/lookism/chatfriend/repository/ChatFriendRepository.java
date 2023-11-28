@@ -5,8 +5,7 @@ import org.ict.lookism.chatfriend.entity.ChatFriend;
 
 import java.util.List;
 
-@Mapper
-public interface ChatFriendMapper {
+public interface ChatFriendRepository {
     public List<ChatFriend> selectAllChatFriend();
 
     public List<ChatFriend> selectMyChatFriend(String userId);
