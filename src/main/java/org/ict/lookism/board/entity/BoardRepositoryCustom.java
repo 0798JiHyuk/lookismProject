@@ -17,7 +17,7 @@ import static org.ict.lookism.board.entity.QBoard.board;
 @RequiredArgsConstructor
 @Repository
 public class BoardRepositoryCustom {
-    private final JPAQueryFactory queryFactory;
+  /*  private final JPAQueryFactory queryFactory;
 
     public Page<Board> findAllBySearchCondition(Pageable pageable, SearchCondition searchCondition){
         JPAQuery<Board> query = queryFactory.selectFrom(board)
@@ -33,7 +33,7 @@ public class BoardRepositoryCustom {
                 .fetch();
 
         return new PageImpl<>(results, pageable, total);
-    }
+    }*/
 
     private BooleanExpression searchKeywords(String sk, String sv) {
         if ("boardtitle".equals(sk)) {
@@ -44,5 +44,9 @@ public class BoardRepositoryCustom {
         return null;
     }
 
+
+    public Page<Board> findAllBySearchCondition(Pageable pageable, SearchCondition searchCondition) {
+        return null;
+    }
 
 }

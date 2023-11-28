@@ -2,28 +2,20 @@ package org.ict.lookism.board.model.service;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.ict.lookism.board.entity.*;
-import org.ict.lookism.board.model.dto.BoardDto;
-import org.ict.lookism.common.Header;
-import org.ict.lookism.common.Pagination;
-import org.ict.lookism.common.SearchCondition;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
+
+
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.List;
+
 
 @Slf4j
 @RequiredArgsConstructor
 @Service
 public class BoardService {
-    private final BoardRepository boardRepository;
-    private final BoardRepositoryCustom boardRepositoryCustom;
+/*    private final BoardRepository boardRepository;
+    private final BoardRepositoryCustom boardRepositoryCustom;*/
 
-    public Header<List<BoardDto>> getBoardList(Pageable pageable, SearchCondition searchCondition) {
+ /*   public Header<List<BoardDto>> getBoardList(Pageable pageable, SearchCondition searchCondition) {
         List<BoardDto> btos = new ArrayList<>();
 
         Page<Board> noticeEntities = boardRepositoryCustom.findAllBySearchCondition(pageable, searchCondition);
@@ -52,5 +44,5 @@ public class BoardService {
         );
         return Header.OK(btos, pagination);
 
-    }
+    }*/
 }
