@@ -1,6 +1,6 @@
 package org.ict.lookism.chatreport.service;
 
-import org.ict.lookism.chatreport.repository.ChatReportMapper;
+import org.ict.lookism.chatreport.repository.ChatReportRepository;
 import org.ict.lookism.chatreport.entity.ChatReport;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -11,8 +11,6 @@ import java.util.List;
 @Service("chatReportService")
 @Transactional
 public class ChatReportServiceImpl implements ChatReportService{
-    @Autowired
-    private ChatReportMapper chatReportMapper;
 
     @Override
     public List<ChatReport> selectAllChatReport() {
