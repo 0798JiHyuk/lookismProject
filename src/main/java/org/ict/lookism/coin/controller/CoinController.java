@@ -13,7 +13,6 @@ import java.util.List;
 
 @Slf4j
 @RequiredArgsConstructor
-@CrossOrigin
 @RestController
 @RequestMapping("/coin")
 public class CoinController {
