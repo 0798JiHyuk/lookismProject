@@ -17,7 +17,7 @@ import java.util.List;
 public class ChatFriendController {
     private ChatFriendService chatFriendService;
 
-    @GetMapping("/{userId")
+    @GetMapping("/{userId}")
     public ResponseEntity<List<ChatFriend>> selectMyChatFriend(String userId){
         return null;
     }
