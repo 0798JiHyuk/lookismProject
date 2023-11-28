@@ -1,4 +1,4 @@
-package org.fix.sefixvue.common;
+package org.ict.lookism.common;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
