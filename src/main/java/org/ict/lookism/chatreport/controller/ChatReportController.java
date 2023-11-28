@@ -32,7 +32,7 @@ public class ChatReportController {
         return null;
     }
 
-    @DeleteMapping("/{chatReportId")
+    @DeleteMapping("/{chatReportId}")
     public int deleteChatReport(String chatReportId){
         return 0;
     }

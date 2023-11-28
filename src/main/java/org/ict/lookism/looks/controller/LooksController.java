@@ -20,7 +20,6 @@ public class LooksController {
 	@Autowired
 	private LooksService looksService;
 
-	@RequestMapping("selectlogin.do")
 	public String selectLoginMethod(
 			@RequestParam(name = "id", required = false) String id,
 			@RequestParam(name = "pwd", required = false) String pwd,
@@ -29,7 +28,6 @@ public class LooksController {
 		return "redirect:/home"; // Modify the redirect URL accordingly
 	}
 
-	@RequestMapping(value = "looksUpdate.do", method = RequestMethod.POST)
 	public String looksUpdateMethod(Looks looks, Model model) {
 		int result = looksService.updateLooks(looks);
 
@@ -44,7 +42,6 @@ public class LooksController {
 	}
 
 	// Looks 삭제 요청 처리용
-	@RequestMapping(value = "looksDelete.do", method = RequestMethod.POST)
 	public String looksDeleteMethod(@RequestParam("userId") String userId, Model model) {
 		int result = looksService.deleteLooks(userId);
 
@@ -59,7 +56,6 @@ public class LooksController {
 	}
 
 	// Looks 목록 조회 요청 처리용
-	@RequestMapping("looksList.do")
 	public String looksListMethod(Model model) {
 		List<Looks> looksList = looksService.selectLooksList();
 		model.addAttribute("looksList", looksList);
