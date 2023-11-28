@@ -14,8 +14,8 @@ import java.util.List;
 @Service
 @RequiredArgsConstructor
 public class PaymentService {
-    private final PaymentRepository paymentRepository;
-    private final PaymentRepositoryCustom paymentRepositoryCustom;
+    private PaymentRepository paymentRepository;
+    private PaymentRepositoryCustom paymentRepositoryCustom;
 	
     public int selectListCount(String userId){
         return 0;
