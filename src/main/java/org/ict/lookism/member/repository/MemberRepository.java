@@ -1,4 +1,4 @@
-package org.ict.lookism.Member.repository;
+package org.ict.lookism.member.repository;
 
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
