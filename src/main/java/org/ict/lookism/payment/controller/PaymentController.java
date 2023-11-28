@@ -12,15 +12,14 @@ import java.util.List;
 
 @Slf4j
 @RequiredArgsConstructor
-@CrossOrigin
 @RestController
 @RequestMapping("/payment")
 //@RestController
 public class PaymentController {
 	//이 컨트롤러 안의 메소드들이 구동되는지, 값이 잘 전달되었는지 확인을 위한 로그 객체를 생성
 	
-	@Autowired
-	private PaymentService paymentService;
+
+	private final PaymentService paymentService;
 	
 	//구매내역 목록보기 요청 처리용 (페이징 처리)
 	@GetMapping("/list/{userId}")

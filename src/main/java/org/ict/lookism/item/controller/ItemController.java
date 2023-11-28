@@ -11,14 +11,13 @@ import java.util.List;
 
 @Slf4j
 @RequiredArgsConstructor
-@CrossOrigin
 @RestController
 @RequestMapping("/item")
 public class ItemController {
 	//이 컨트롤러 안의 메소드들이 구동되는지, 값이 잘 전달되었는지 확인을 위한 로그 객체를 생성
 	
-	@Autowired
-	private ItemService itemService;
+
+	private final ItemService itemService;
 	
 	@GetMapping("/list")
 	public List<Item> selectList() {

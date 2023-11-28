@@ -1,4 +1,4 @@
-package org.ict.lookism.Member.service;
+package org.ict.lookism.member.service;
 
 import org.ict.lookism.member.entity.Member;
 import org.ict.lookism.member.repository.MemberRepository;

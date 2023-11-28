@@ -1,18 +1,34 @@
 package org.ict.lookism.coin.service;
 
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.ict.lookism.coin.entity.Coin;
+import org.ict.lookism.coin.repository.CoinRepository;
 import org.ict.lookism.common.Paging;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-public interface CoinService {
+@Slf4j
+@Service
+@RequiredArgsConstructor
+public class CoinService {
+    private final CoinRepository coinRepository;
 	
-	int selectListCount(String userId);
+	public int selectListCount(String userId){
+        return 0;
+    }
 	
-    List<Coin> selectUsedList(Paging paging, String userId);
+    public List<Coin> selectUsedList(Paging paging, String userId){
+        return null;
+    }
 
-    int insertICoin(Coin coin);
+    public int insertICoin(Coin coin){
+        return 0;
+    };
 
-    int insertRCoin(Coin coin);
+    public int insertRCoin(Coin coin){
+        return 0;
+    }
 
 }

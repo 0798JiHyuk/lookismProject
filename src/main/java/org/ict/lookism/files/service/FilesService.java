@@ -2,7 +2,6 @@ package org.ict.lookism.files.service;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.ict.lookism.board.repository.BoardMapper;
 import org.ict.lookism.files.entity.Files;
 import org.ict.lookism.files.repository.FilesRepository;
 import org.ict.lookism.files.repository.FilesRepositoryCustom;
