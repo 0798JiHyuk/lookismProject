@@ -1,9 +1,6 @@
 package org.ict.lookism.item.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -23,7 +20,12 @@ public class Item{
 			name = "UUID",
 			strategy = "org.hibernate.id.UUIDGenerator"
 	)
+
 	private String itemId;
+
+	private String itemName;
+
 	private int itemPrice;
+
 	private int discountRate;
 }
