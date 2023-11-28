@@ -14,7 +14,7 @@ import java.util.List;
 @Service
 @RequiredArgsConstructor
 public class ItemService {
-    private final ItemRepository itemRepository;
+    private ItemRepository itemRepository;
 
 
     public List<Item> selectList(){
