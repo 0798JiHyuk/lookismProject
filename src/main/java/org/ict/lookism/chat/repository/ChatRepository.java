@@ -1,13 +1,11 @@
 package org.ict.lookism.chat.repository;
 
-import org.apache.ibatis.annotations.Mapper;
 import org.ict.lookism.chat.entity.Chat;
 
 import java.sql.Timestamp;
 import java.util.List;
 
-@Mapper
-public interface ChatMapper {
+public interface ChatRepository {
     public List<Chat> selectAllSendChat(String senderId);
 
     public List<Chat> selectAllRecvChat(String receiverId);

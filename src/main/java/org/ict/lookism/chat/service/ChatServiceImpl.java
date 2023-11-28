@@ -1,6 +1,6 @@
 package org.ict.lookism.chat.service;
 
-import org.ict.lookism.chat.repository.ChatMapper;
+import org.ict.lookism.chat.repository.ChatRepository;
 import org.ict.lookism.chat.entity.Chat;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -10,10 +10,8 @@ import java.sql.Timestamp;
 import java.util.List;
 
 @Service("chatService")
-@Transactional
 public class ChatServiceImpl implements ChatService{
-    @Autowired
-    private ChatMapper chatMapper;
+    private ChatRepository chatRepository;
 
     @Override
     public List<Chat> selectAllSendChat(String senderId) {
