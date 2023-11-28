@@ -1,10 +1,8 @@
 package org.ict.lookism.chat.service;
 
-import org.ict.lookism.chat.repository.ChatRepository;
 import org.ict.lookism.chat.entity.Chat;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.ict.lookism.chat.repository.ChatRepository;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.sql.Timestamp;
 import java.util.List;

@@ -1,6 +1,6 @@
 package org.ict.lookism.chatfriend.service;
 
-import org.ict.lookism.chatfriend.repository.ChatFriendMapper;
+import org.ict.lookism.chatfriend.repository.ChatFriendRepository;
 import org.ict.lookism.chatfriend.entity.ChatFriend;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -11,8 +11,7 @@ import java.util.List;
 @Service("chatFriendService")
 @Transactional
 public class ChatFriendServiceImpl implements ChatFriendService{
-    @Autowired
-    private ChatFriendMapper chatFriendMapper;
+
 
     @Override
     public List<ChatFriend> selectAllChatFriend() {
