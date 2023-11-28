@@ -18,7 +18,7 @@ public class CoinServiceImpl implements CoinService {
 	
 	@Override
 	public int selectListCount(String userId) {
-		return coinRepository.selectListCount();
+		return coinRepository.selectListCount(userId);
 	}
 
 	@Override

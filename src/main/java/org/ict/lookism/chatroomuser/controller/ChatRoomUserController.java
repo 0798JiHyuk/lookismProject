@@ -1,7 +1,7 @@
 package org.ict.lookism.chatroomuser.controller;
 
 import lombok.extern.slf4j.Slf4j;
-import org.ict.lookism.Member.vo.Member;
+import org.ict.lookism.member.vo.Member;
 import org.ict.lookism.chatroomuser.service.ChatRoomUserService;
 import org.ict.lookism.chatroomuser.entity.ChatRoomUser;
 import org.springframework.beans.factory.annotation.Autowired;

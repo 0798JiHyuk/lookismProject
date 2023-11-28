@@ -1,14 +1,28 @@
 package org.ict.lookism.item.entity;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.GenericGenerator;
 
-@Data  // @ToString, @EqualsAndHashCode, @Getter/@Setter, @RequiredArgsConstructor 모두 사용한 것과 같음
+@Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class Item /* implements java.io.Serializable */ {
-	//private static final long serialVersionUID = -5219066150385199445L;
+@Builder
+@Entity
+@Table(name="item")
+public class Item{
+	@Id
+	@GeneratedValue(generator = "UUID")
+	@GenericGenerator(
+			name = "UUID",
+			strategy = "org.hibernate.id.UUIDGenerator"
+	)
 	private String itemId;
 	private int itemPrice;
 	private int discountRate;
