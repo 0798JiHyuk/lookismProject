@@ -27,7 +27,50 @@ import org.springframework.web.bind.annotation.*;
 @RequiredArgsConstructor
 @CrossOrigin
 @RestController
+@RequestMapping("/boards")
 public class BoardController {
+
+    private final BoardService service;
+
+    @PostMapping
+    public ResponseEntity<Board> register(@Validated @RequestBody Board board) throws Exception {
+        board.setWritedate(new Date(Calendar.getInstance().getTimeInMillis()));
+        service.register(board);
+
+        return new ResponseEntity<>(board, HttpStatus.OK);
+    }
+
+    @GetMapping
+    public ResponseEntity<List<Board>> list() throws Exception {
+
+        return new ResponseEntity<>(service.list(), HttpStatus.OK);
+    }
+
+    @GetMapping("/{boardid}")
+    public ResponseEntity<Board> read(@PathVariable("boardid") String boardid) throws Exception {
+
+        Board board = service.read(boardid);
+
+        return new ResponseEntity<>(board, HttpStatus.OK);
+    }
+
+    @PatchMapping("/{boardid}")
+    public ResponseEntity<Board> modify(@PathVariable("boardid") String boardid, @Validated @RequestBody Board board) throws Exception{
+
+        board.setBoardid(boardid);
+        service.modify(board);
+
+        return new ResponseEntity<>(board, HttpStatus.OK);
+
+    }
+
+    @DeleteMapping("/{boardid}")
+    public ResponseEntity<Void> remove(@PathVariable("boardid") String boardid) throws Exception {
+
+        service.remove(boardid);
+
+        return new ResponseEntity<Void>(HttpStatus.NO_CONTENT);
+    }
 
 
 
