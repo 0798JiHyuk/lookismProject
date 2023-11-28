@@ -21,7 +21,8 @@ public class ItemController {
 	
 	@GetMapping("/list")
 	public List<Item> selectList() {
-		return null;
+		return itemService.selectList();
+
 	}
 
 	//아이템 할인율 변경 요청 처리용
