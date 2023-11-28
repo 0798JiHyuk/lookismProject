@@ -1,4 +1,18 @@
 package org.ict.lookism.board.service;
 
+import org.ict.lookism.board.entity.Board;
+
+import java.util.List;
+
 public interface BoardService {
+
+    public void register(Board board) throws Exception;
+
+    public List<Board> list() throws Exception;
+
+    public Board read(String boardid) throws Exception;
+
+    public void modify(Board board) throws Exception;
+
+    public void remove(String boardid) throws Exception;
 }
