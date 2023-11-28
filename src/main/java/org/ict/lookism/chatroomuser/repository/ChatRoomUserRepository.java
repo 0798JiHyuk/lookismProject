@@ -1,13 +1,11 @@
 package org.ict.lookism.chatroomuser.repository;
 
-import org.apache.ibatis.annotations.Mapper;
-import org.ict.lookism.member.vo.Member;
 import org.ict.lookism.chatroomuser.entity.ChatRoomUser;
+import org.ict.lookism.member.vo.Member;
 
 import java.util.List;
 
-@Mapper
-public interface ChatRoomUserMapper {
+public interface ChatRoomUserRepository {
 
     public List<Member> selectChatRoom(String chatRoomId);
 

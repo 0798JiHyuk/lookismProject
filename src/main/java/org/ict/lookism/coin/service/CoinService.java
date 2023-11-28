@@ -5,6 +5,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.ict.lookism.coin.entity.Coin;
 import org.ict.lookism.coin.repository.CoinRepository;
 import org.ict.lookism.common.Paging;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -14,7 +15,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class CoinService {
     private final CoinRepository coinRepository;
-	
+
 	public int selectListCount(String userId){
         return 0;
     }

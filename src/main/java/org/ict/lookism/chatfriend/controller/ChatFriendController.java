@@ -15,7 +15,6 @@ import java.util.List;
 @RestController
 @RequestMapping("chatfriend")
 public class ChatFriendController {
-    @Autowired
     private ChatFriendService chatFriendService;
 
     @GetMapping("/{userId")
