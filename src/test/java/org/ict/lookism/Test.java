@@ -7,10 +7,12 @@ import org.springframework.stereotype.Component;
 @SpringBootTest
 @Component
 public class Test {
-    @Value("${file.dir}")
-    private String filedir;
+    @Value("${filesPath}")
+    private String filesPath;
+
     @org.junit.jupiter.api.Test
     public void testMethod(){
-        System.out.println(filedir);
+        System.out.println(filesPath);
+        System.out.println(System.getProperty("user.dir"));
     }
 }
