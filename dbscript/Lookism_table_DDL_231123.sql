@@ -1,906 +1,905 @@
-/* ���� */
-DROP TABLE FILES 
-	CASCADE CONSTRAINTS;
+/* 파일 */
+DROP TABLE FILES
+    CASCADE CONSTRAINTS;
 
-/* ä���̷� */
-DROP TABLE CHAT 
-	CASCADE CONSTRAINTS;
+/* 채팅이력 */
+DROP TABLE CHAT
+    CASCADE CONSTRAINTS;
 
-/* ä�ýŰ� */
-DROP TABLE CHATREPORT 
-	CASCADE CONSTRAINTS;
+/* 채팅신고 */
+DROP TABLE CHATREPORT
+    CASCADE CONSTRAINTS;
 
-/* ȸ�� */
-DROP TABLE MEMBER 
-	CASCADE CONSTRAINTS;
+/* 회원 */
+DROP TABLE MEMBER
+    CASCADE CONSTRAINTS;
 
-/* ������ */
-DROP TABLE LOOKS 
-	CASCADE CONSTRAINTS;
+/* 닮은꼴 */
+DROP TABLE LOOKS
+    CASCADE CONSTRAINTS;
 
-/* ���ܸ�� */
-DROP TABLE BLOCK 
-	CASCADE CONSTRAINTS;
+/* 차단목록 */
+DROP TABLE BLOCK
+    CASCADE CONSTRAINTS;
 
-/* ���� */
-DROP TABLE PAYMENT 
-	CASCADE CONSTRAINTS;
+/* 결제 */
+DROP TABLE PAYMENT
+    CASCADE CONSTRAINTS;
 
-/* ���λ�볻�� */
-DROP TABLE COIN 
-	CASCADE CONSTRAINTS;
+/* 코인사용내역 */
+DROP TABLE COIN
+    CASCADE CONSTRAINTS;
 
-/* ������ǰ */
-DROP TABLE ITEM 
-	CASCADE CONSTRAINTS;
+/* 결제상품 */
+DROP TABLE ITEM
+    CASCADE CONSTRAINTS;
 
-/* �Խ��� */
-DROP TABLE BOARD 
-	CASCADE CONSTRAINTS;
+/* 게시판 */
+DROP TABLE BOARD
+    CASCADE CONSTRAINTS;
 
-/* �Խ����̸� */
-DROP TABLE BOARDNAME 
-	CASCADE CONSTRAINTS;
+/* 게시판이름 */
+DROP TABLE BOARDNAME
+    CASCADE CONSTRAINTS;
 
-/* ä�ù� ��� */
-DROP TABLE CHATROOM 
-	CASCADE CONSTRAINTS;
+/* 채팅방 목록 */
+DROP TABLE CHATROOM
+    CASCADE CONSTRAINTS;
 
-/* ä�ù������� */
-DROP TABLE CHATROOMUSER 
-	CASCADE CONSTRAINTS;
+/* 채팅방입장목록 */
+DROP TABLE CHATROOMUSER
+    CASCADE CONSTRAINTS;
 
-/* ���λ�ǰ */
-DROP TABLE PRODUCT 
-	CASCADE CONSTRAINTS;
+/* 코인상품 */
+DROP TABLE PRODUCT
+    CASCADE CONSTRAINTS;
 
-/* ä�� ģ����� */
-DROP TABLE CHATFRIEND 
-	CASCADE CONSTRAINTS;
+/* 채팅 친구목록 */
+DROP TABLE CHATFRIEND
+    CASCADE CONSTRAINTS;
 
-/* ���̽�Ÿ */
-DROP TABLE MYSTAR 
-	CASCADE CONSTRAINTS;
+/* 마이스타 */
+DROP TABLE MYSTAR
+    CASCADE CONSTRAINTS;
 
-/* ��Ÿ */
-DROP TABLE STAR 
-	CASCADE CONSTRAINTS;
+/* 스타 */
+DROP TABLE STAR
+    CASCADE CONSTRAINTS;
 
-/* ���� */
+/* 파일 */
 CREATE TABLE FILES (
-	FILEID raw(16) DEFAULT sys_guid() NOT NULL, /* ����ID */
-	USERID raw(16) DEFAULT sys_guid() NOT NULL, /* ȸ��ID */
-	BOARDID raw(16) DEFAULT sys_guid(), /* �Խñ�ID */
-	BOARDNAME VARCHAR(255), /* �Խ����̸� */
-	FILENAME VARCHAR2(4000) NOT NULL, /* ���ϸ� */
-	REGDATE DATE DEFAULT sysdate NOT NULL, /* ��ϳ�¥ */
-	DELYN VARCHAR(255) DEFAULT 'N', /* �������� */
-	DELDATE DATE DEFAULT sysdate /* ������¥ */
+                       FILEID raw(16) DEFAULT sys_guid() NOT NULL, /* 파일ID */
+                       USERID raw(16) DEFAULT sys_guid() NOT NULL, /* 회원ID */
+                       BOARDID raw(16) DEFAULT sys_guid(), /* 게시글ID */
+                       BOARDNAME VARCHAR(255), /* 게시판이름 */
+                       FILENAME VARCHAR2(4000) NOT NULL, /* 파일명 */
+                       REGDATE DATE DEFAULT sysdate NOT NULL, /* 등록날짜 */
+                       DELYN VARCHAR(255) DEFAULT 'N', /* 삭제여부 */
+                       DELDATE DATE DEFAULT sysdate /* 삭제날짜 */
 );
 
-COMMENT ON TABLE FILES IS '����';
+COMMENT ON TABLE FILES IS '파일';
 
-COMMENT ON COLUMN FILES.FILEID IS '����ID';
+COMMENT ON COLUMN FILES.FILEID IS '파일ID';
 
-COMMENT ON COLUMN FILES.USERID IS 'ȸ��ID';
+COMMENT ON COLUMN FILES.USERID IS '회원ID';
 
-COMMENT ON COLUMN FILES.BOARDID IS '�Խñ�ID';
+COMMENT ON COLUMN FILES.BOARDID IS '게시글ID';
 
-COMMENT ON COLUMN FILES.BOARDNAME IS '�Խ����̸�';
+COMMENT ON COLUMN FILES.BOARDNAME IS '게시판이름';
 
-COMMENT ON COLUMN FILES.FILENAME IS '���ϸ�';
+COMMENT ON COLUMN FILES.FILENAME IS '파일명';
 
-COMMENT ON COLUMN FILES.REGDATE IS '��ϳ�¥';
+COMMENT ON COLUMN FILES.REGDATE IS '등록날짜';
 
-COMMENT ON COLUMN FILES.DELYN IS '��������';
+COMMENT ON COLUMN FILES.DELYN IS '삭제여부';
 
-COMMENT ON COLUMN FILES.DELDATE IS '������¥';
+COMMENT ON COLUMN FILES.DELDATE IS '삭제날짜';
 
 CREATE UNIQUE INDEX PK_FILES
-	ON FILES (
-		FILEID ASC
-	);
+    ON FILES (
+              FILEID ASC
+        );
 
 ALTER TABLE FILES
-	ADD
-		CONSTRAINT PK_FILES
-		PRIMARY KEY (
-			FILEID
-		);
+    ADD
+        CONSTRAINT PK_FILES
+            PRIMARY KEY (
+                         FILEID
+                );
 
-/* ä���̷� */
+/* 채팅이력 */
 CREATE TABLE CHAT (
-	CHATID raw(16) DEFAULT sys_guid() NOT NULL, /* êID */
-	SENDERID raw(16) DEFAULT sys_guid() NOT NULL, /* �������ID */
-	RECEIVERID raw(16) DEFAULT sys_guid() NOT NULL, /* �޴� ���ID */
-	CHATTIME DATE DEFAULT sysdate NOT NULL, /* ä�ý��۽ð� */
-	CHATENDTIME DATE DEFAULT sysdate /* ä������ð� */
+                      CHATID raw(16) DEFAULT sys_guid() NOT NULL, /* 챗ID */
+                      SENDERID raw(16) DEFAULT sys_guid() NOT NULL, /* 보낸사람ID */
+                      RECEIVERID raw(16) DEFAULT sys_guid() NOT NULL, /* 받는 사람ID */
+                      CHATTIME DATE DEFAULT sysdate NOT NULL, /* 채팅시작시간 */
+                      CHATENDTIME DATE DEFAULT sysdate /* 채팅종료시간 */
 );
 
-COMMENT ON TABLE CHAT IS 'ä���̷�';
+COMMENT ON TABLE CHAT IS '채팅이력';
 
-COMMENT ON COLUMN CHAT.CHATID IS 'êID';
+COMMENT ON COLUMN CHAT.CHATID IS '챗ID';
 
-COMMENT ON COLUMN CHAT.SENDERID IS '�������ID';
+COMMENT ON COLUMN CHAT.SENDERID IS '보낸사람ID';
 
-COMMENT ON COLUMN CHAT.RECEIVERID IS '�޴� ���ID';
+COMMENT ON COLUMN CHAT.RECEIVERID IS '받는 사람ID';
 
-COMMENT ON COLUMN CHAT.CHATTIME IS 'ä�ý��۽ð�';
+COMMENT ON COLUMN CHAT.CHATTIME IS '채팅시작시간';
 
-COMMENT ON COLUMN CHAT.CHATENDTIME IS 'ä������ð�';
+COMMENT ON COLUMN CHAT.CHATENDTIME IS '채팅종료시간';
 
 CREATE UNIQUE INDEX PK_CHAT
-	ON CHAT (
-		CHATID ASC
-	);
+    ON CHAT (
+             CHATID ASC
+        );
 
 ALTER TABLE CHAT
-	ADD
-		CONSTRAINT PK_CHAT
-		PRIMARY KEY (
-			CHATID
-		);
+    ADD
+        CONSTRAINT PK_CHAT
+            PRIMARY KEY (
+                         CHATID
+                );
 
-/* ä�ýŰ� */
+/* 채팅신고 */
 CREATE TABLE CHATREPORT (
-	CHATREPORTID raw(16) DEFAULT sys_guid() NOT NULL, /* ê�Ű�ID */
-	CHATREPORT VARCHAR2(4000) NOT NULL, /* �Ű����� */
-	CHATREPORTERID raw(16) DEFAULT sys_guid() NOT NULL, /* �Ű���ID */
-	CHATREPORTDATE DATE DEFAULT sysdate NOT NULL, /* �Ű���¥ */
-	CHATLOG CLOB NOT NULL, /* ä�ñ�� */
-	USERID raw(16) DEFAULT sys_guid() /* ȸ��ID */
+                            CHATREPORTID raw(16) DEFAULT sys_guid() NOT NULL, /* 챗신고ID */
+                            CHATREPORT VARCHAR2(4000) NOT NULL, /* 신고내용 */
+                            CHATREPORTERID raw(16) DEFAULT sys_guid() NOT NULL, /* 신고자ID */
+                            CHATREPORTDATE DATE DEFAULT sysdate NOT NULL, /* 신고날짜 */
+                            CHATLOG CLOB NOT NULL, /* 채팅기록 */
+                            USERID raw(16) DEFAULT sys_guid() /* 회원ID */
 );
 
-COMMENT ON TABLE CHATREPORT IS 'ä�ýŰ�';
+COMMENT ON TABLE CHATREPORT IS '채팅신고';
 
-COMMENT ON COLUMN CHATREPORT.CHATREPORTID IS 'ê�Ű�ID';
+COMMENT ON COLUMN CHATREPORT.CHATREPORTID IS '챗신고ID';
 
-COMMENT ON COLUMN CHATREPORT.CHATREPORT IS '�Ű�����';
+COMMENT ON COLUMN CHATREPORT.CHATREPORT IS '신고내용';
 
-COMMENT ON COLUMN CHATREPORT.CHATREPORTERID IS '�Ű���ID';
+COMMENT ON COLUMN CHATREPORT.CHATREPORTERID IS '신고자ID';
 
-COMMENT ON COLUMN CHATREPORT.CHATREPORTDATE IS '�Ű���¥';
+COMMENT ON COLUMN CHATREPORT.CHATREPORTDATE IS '신고날짜';
 
-COMMENT ON COLUMN CHATREPORT.CHATLOG IS 'ä�ñ��';
+COMMENT ON COLUMN CHATREPORT.CHATLOG IS '채팅기록';
 
-COMMENT ON COLUMN CHATREPORT.USERID IS 'ȸ��ID';
+COMMENT ON COLUMN CHATREPORT.USERID IS '회원ID';
 
 CREATE UNIQUE INDEX PK_CHATREPORT
-	ON CHATREPORT (
-		CHATREPORTID ASC
-	);
+    ON CHATREPORT (
+                   CHATREPORTID ASC
+        );
 
 ALTER TABLE CHATREPORT
-	ADD
-		CONSTRAINT PK_CHATREPORT
-		PRIMARY KEY (
-			CHATREPORTID
-		);
+    ADD
+        CONSTRAINT PK_CHATREPORT
+            PRIMARY KEY (
+                         CHATREPORTID
+                );
 
-/* ȸ�� */
+/* 회원 */
 CREATE TABLE MEMBER (
-	USERID raw(16) DEFAULT sys_guid() NOT NULL, /* ȸ��ID */
-	USERPWD VARCHAR(255) NOT NULL, /* ȸ����й�ȣ */
-	USERNAME VARCHAR(255) NOT NULL, /* �̸� */
-	USERBIRTH DATE DEFAULT 
- NOT NULL, /* ���� */
-	USERENROLLDATE DATE DEFAULT sysdate NOT NULL, /* ������ */
-	USEREMAIL VARCHAR(40) NOT NULL, /* �̸��� */
-	USERHEIGHT INTEGER NOT NULL, /* Ű */
-	USERPHONE VARCHAR(255) NOT NULL, /* ��ȭ��ȣ */
-	USERWEIGHT INTEGER NOT NULL, /* ������ */
-	USERCIGARETTE VARCHAR(255) NOT NULL, /* �������� */
-	USERDRINKING VARCHAR(255) NOT NULL, /* ���ֿ��� */
-	USERRELIGION VARCHAR(255) NOT NULL, /* ���� */
-	USERPROFILE VARCHAR2(4000), /* �ڱ�Ұ� */
-	USERMBTI VARCHAR(255), /* MBTI */
-	USERLEVEL VARCHAR(255) DEFAULT 'N' NOT NULL, /* �Ű����� */
-	ADMINLV VARCHAR(255) NOT NULL /* �����ڿ��� */
+                        USERID raw(16) DEFAULT sys_guid() NOT NULL, /* 회원ID */
+                        USERPWD VARCHAR(255) NOT NULL, /* 회원비밀번호 */
+                        USERNAME VARCHAR(255) NOT NULL, /* 이름 */
+                        USERBIRTH DATE NOT NULL, /* 생일 */
+                        USERENROLLDATE DATE DEFAULT sysdate NOT NULL, /* 가입일 */
+                        USEREMAIL VARCHAR(40) NOT NULL, /* 이메일 */
+                        USERHEIGHT INTEGER NOT NULL, /* 키 */
+                        USERPHONE VARCHAR(255) NOT NULL, /* 전화번호 */
+                        USERWEIGHT INTEGER NOT NULL, /* 몸무게 */
+                        USERCIGARETTE VARCHAR(255) NOT NULL, /* 흡연여부 */
+                        USERDRINKING VARCHAR(255) NOT NULL, /* 음주여부 */
+                        USERRELIGION VARCHAR(255) NOT NULL, /* 종교 */
+                        USERPROFILE VARCHAR2(4000), /* 자기소개 */
+                        USERMBTI VARCHAR(255), /* MBTI */
+                        USERLEVEL VARCHAR(255) DEFAULT 'N' NOT NULL, /* 신고레벨 */
+                        ADMINLV VARCHAR(255) NOT NULL /* 관리자여부 */
 );
 
-COMMENT ON TABLE MEMBER IS 'ȸ��';
+COMMENT ON TABLE MEMBER IS '회원';
 
-COMMENT ON COLUMN MEMBER.USERID IS 'ȸ��ID';
+COMMENT ON COLUMN MEMBER.USERID IS '회원ID';
 
-COMMENT ON COLUMN MEMBER.USERPWD IS 'ȸ����й�ȣ';
+COMMENT ON COLUMN MEMBER.USERPWD IS '회원비밀번호';
 
-COMMENT ON COLUMN MEMBER.USERNAME IS '�̸�';
+COMMENT ON COLUMN MEMBER.USERNAME IS '이름';
 
-COMMENT ON COLUMN MEMBER.USERBIRTH IS '����';
+COMMENT ON COLUMN MEMBER.USERBIRTH IS '생일';
 
-COMMENT ON COLUMN MEMBER.USERENROLLDATE IS '������';
+COMMENT ON COLUMN MEMBER.USERENROLLDATE IS '가입일';
 
-COMMENT ON COLUMN MEMBER.USEREMAIL IS '�̸���';
+COMMENT ON COLUMN MEMBER.USEREMAIL IS '이메일';
 
-COMMENT ON COLUMN MEMBER.USERHEIGHT IS 'Ű';
+COMMENT ON COLUMN MEMBER.USERHEIGHT IS '키';
 
-COMMENT ON COLUMN MEMBER.USERPHONE IS '��ȭ��ȣ';
+COMMENT ON COLUMN MEMBER.USERPHONE IS '전화번호';
 
-COMMENT ON COLUMN MEMBER.USERWEIGHT IS '������';
+COMMENT ON COLUMN MEMBER.USERWEIGHT IS '몸무게';
 
-COMMENT ON COLUMN MEMBER.USERCIGARETTE IS '��������';
+COMMENT ON COLUMN MEMBER.USERCIGARETTE IS '흡연여부';
 
-COMMENT ON COLUMN MEMBER.USERDRINKING IS '���ֿ���';
+COMMENT ON COLUMN MEMBER.USERDRINKING IS '음주여부';
 
-COMMENT ON COLUMN MEMBER.USERRELIGION IS '����';
+COMMENT ON COLUMN MEMBER.USERRELIGION IS '종교';
 
-COMMENT ON COLUMN MEMBER.USERPROFILE IS '�ڱ�Ұ�';
+COMMENT ON COLUMN MEMBER.USERPROFILE IS '자기소개';
 
 COMMENT ON COLUMN MEMBER.USERMBTI IS 'MBTI';
 
-COMMENT ON COLUMN MEMBER.USERLEVEL IS '�Ű�����';
+COMMENT ON COLUMN MEMBER.USERLEVEL IS '신고레벨';
 
-COMMENT ON COLUMN MEMBER.ADMINLV IS '�����ڿ���';
+COMMENT ON COLUMN MEMBER.ADMINLV IS '관리자여부';
 
 CREATE UNIQUE INDEX PK_MEMBER
-	ON MEMBER (
-		USERID ASC
-	);
+    ON MEMBER (
+               USERID ASC
+        );
 
 CREATE UNIQUE INDEX UIX_MEMBER
-	ON MEMBER (
-		USEREMAIL ASC,
-		USERPHONE ASC
-	);
+    ON MEMBER (
+               USEREMAIL ASC,
+               USERPHONE ASC
+        );
 
 ALTER TABLE MEMBER
-	ADD
-		CONSTRAINT PK_MEMBER
-		PRIMARY KEY (
-			USERID
-		);
+    ADD
+        CONSTRAINT PK_MEMBER
+            PRIMARY KEY (
+                         USERID
+                );
 
 ALTER TABLE MEMBER
-	ADD
-		CONSTRAINT UK_MEMBER
-		UNIQUE (
-			USEREMAIL,
-			USERPHONE
-		);
+    ADD
+        CONSTRAINT UK_MEMBER
+            UNIQUE (
+                    USEREMAIL,
+                    USERPHONE
+                );
 
-/* ������ */
+/* 닮은꼴 */
 CREATE TABLE LOOKS (
-	USERID raw(16) DEFAULT sys_guid(), /* ȸ��ID */
-	STARNAME VARCHAR(255), /* ���� ������ */
-	PERCENT INTEGER, /* ���絵 */
-	LOOKSDATE DATE DEFAULT sysdate /* �ܸ�������¥ */
+                       USERID raw(16) DEFAULT sys_guid(), /* 회원ID */
+                       STARNAME VARCHAR(255), /* 닮은 연예인 */
+                       PERCENT INTEGER, /* 유사도 */
+                       LOOKSDATE DATE DEFAULT sysdate /* 외모판정날짜 */
 );
 
-COMMENT ON TABLE LOOKS IS '������';
+COMMENT ON TABLE LOOKS IS '닮은꼴';
 
-COMMENT ON COLUMN LOOKS.USERID IS 'ȸ��ID';
+COMMENT ON COLUMN LOOKS.USERID IS '회원ID';
 
-COMMENT ON COLUMN LOOKS.STARNAME IS '���� ������';
+COMMENT ON COLUMN LOOKS.STARNAME IS '닮은 연예인';
 
-COMMENT ON COLUMN LOOKS.PERCENT IS '���絵';
+COMMENT ON COLUMN LOOKS.PERCENT IS '유사도';
 
-COMMENT ON COLUMN LOOKS.LOOKSDATE IS '�ܸ�������¥';
+COMMENT ON COLUMN LOOKS.LOOKSDATE IS '외모판정날짜';
 
-/* ���ܸ�� */
+/* 차단목록 */
 CREATE TABLE BLOCK (
-	BLOCKID raw(16) DEFAULT sys_guid() NOT NULL, /* ����ID */
-	USERID raw(16) DEFAULT sys_guid() NOT NULL, /* ȸ��ID */
-	BLOCKEDUSERID raw(16) DEFAULT sys_guid(), /* ��������ID */
-	BLOCKEDPHONE VARCHAR(255), /* ������ȭ��ȣ */
-	BLOCKEDEMAIL VARCHAR(40), /* �����̸��� */
-	BLOCKDATE DATE DEFAULT sysdate NOT NULL /* ���ܳ�¥ */
+                       BLOCKID raw(16) DEFAULT sys_guid() NOT NULL, /* 차단ID */
+                       USERID raw(16) DEFAULT sys_guid() NOT NULL, /* 회원ID */
+                       BLOCKEDUSERID raw(16) DEFAULT sys_guid(), /* 차단유저ID */
+                       BLOCKEDPHONE VARCHAR(255), /* 차단전화번호 */
+                       BLOCKEDEMAIL VARCHAR(40), /* 차단이메일 */
+                       BLOCKDATE DATE DEFAULT sysdate NOT NULL /* 차단날짜 */
 );
 
-COMMENT ON TABLE BLOCK IS '���ܸ��';
+COMMENT ON TABLE BLOCK IS '차단목록';
 
-COMMENT ON COLUMN BLOCK.BLOCKID IS '����ID';
+COMMENT ON COLUMN BLOCK.BLOCKID IS '차단ID';
 
-COMMENT ON COLUMN BLOCK.USERID IS 'ȸ��ID';
+COMMENT ON COLUMN BLOCK.USERID IS '회원ID';
 
-COMMENT ON COLUMN BLOCK.BLOCKEDUSERID IS '��������ID';
+COMMENT ON COLUMN BLOCK.BLOCKEDUSERID IS '차단유저ID';
 
-COMMENT ON COLUMN BLOCK.BLOCKEDPHONE IS '������ȭ��ȣ';
+COMMENT ON COLUMN BLOCK.BLOCKEDPHONE IS '차단전화번호';
 
-COMMENT ON COLUMN BLOCK.BLOCKEDEMAIL IS '�����̸���';
+COMMENT ON COLUMN BLOCK.BLOCKEDEMAIL IS '차단이메일';
 
-COMMENT ON COLUMN BLOCK.BLOCKDATE IS '���ܳ�¥';
+COMMENT ON COLUMN BLOCK.BLOCKDATE IS '차단날짜';
 
 CREATE UNIQUE INDEX PK_BLOCK
-	ON BLOCK (
-		BLOCKID ASC
-	);
+    ON BLOCK (
+              BLOCKID ASC
+        );
 
 ALTER TABLE BLOCK
-	ADD
-		CONSTRAINT PK_BLOCK
-		PRIMARY KEY (
-			BLOCKID
-		);
+    ADD
+        CONSTRAINT PK_BLOCK
+            PRIMARY KEY (
+                         BLOCKID
+                );
 
-/* ���� */
+/* 결제 */
 CREATE TABLE PAYMENT (
-	PAYMENTID raw(16) DEFAULT sys_guid() NOT NULL, /* ����ID */
-	USERID raw(16) DEFAULT sys_guid() NOT NULL, /* ����ID */
-	ITEMID raw(16) DEFAULT sys_guid() NOT NULL, /* ��ǰID */
-	PAYMENTPRICE INTEGER NOT NULL, /* ���� */
-	PAYMETHOD VARCHAR(255) NOT NULL, /* �������� */
-	PAYDATE DATE DEFAULT sysdate NOT NULL, /* ������¥ */
-	PAYSTATUS VARCHAR(255) NOT NULL, /* �������� */
-	REFUNDDATE DATE DEFAULT sysdate, /* ȯ�ҳ�¥ */
-	PAYMENTKEY VARCHAR(255) NOT NULL, /* ���̸�ƮŰ */
-	USESTATUS VARCHAR(255), /* ��ǰ��뿩�� */
-	COINLEFTNUM INTEGER /* �ܿ����ΰ��� */
+                         PAYMENTID raw(16) DEFAULT sys_guid() NOT NULL, /* 결제ID */
+                         USERID raw(16) DEFAULT sys_guid() NOT NULL, /* 유저ID */
+                         ITEMID raw(16) DEFAULT sys_guid() NOT NULL, /* 상품ID */
+                         PAYMENTPRICE INTEGER NOT NULL, /* 가격 */
+                         PAYMETHOD VARCHAR(255) NOT NULL, /* 결제수단 */
+                         PAYDATE DATE DEFAULT sysdate NOT NULL, /* 결제날짜 */
+                         PAYSTATUS VARCHAR(255) NOT NULL, /* 결제상태 */
+                         REFUNDDATE DATE DEFAULT sysdate, /* 환불날짜 */
+                         PAYMENTKEY VARCHAR(255) NOT NULL, /* 페이먼트키 */
+                         USESTATUS VARCHAR(255), /* 상품사용여부 */
+                         COINLEFTNUM INTEGER /* 잔여코인갯수 */
 );
 
-COMMENT ON TABLE PAYMENT IS '����';
+COMMENT ON TABLE PAYMENT IS '결제';
 
-COMMENT ON COLUMN PAYMENT.PAYMENTID IS '����ID';
+COMMENT ON COLUMN PAYMENT.PAYMENTID IS '결제ID';
 
-COMMENT ON COLUMN PAYMENT.USERID IS '����ID';
+COMMENT ON COLUMN PAYMENT.USERID IS '유저ID';
 
-COMMENT ON COLUMN PAYMENT.ITEMID IS '��ǰID';
+COMMENT ON COLUMN PAYMENT.ITEMID IS '상품ID';
 
-COMMENT ON COLUMN PAYMENT.PAYMENTPRICE IS '����';
+COMMENT ON COLUMN PAYMENT.PAYMENTPRICE IS '가격';
 
-COMMENT ON COLUMN PAYMENT.PAYMETHOD IS '��������';
+COMMENT ON COLUMN PAYMENT.PAYMETHOD IS '결제수단';
 
-COMMENT ON COLUMN PAYMENT.PAYDATE IS '������¥';
+COMMENT ON COLUMN PAYMENT.PAYDATE IS '결제날짜';
 
-COMMENT ON COLUMN PAYMENT.PAYSTATUS IS '��������';
+COMMENT ON COLUMN PAYMENT.PAYSTATUS IS '결제상태';
 
-COMMENT ON COLUMN PAYMENT.REFUNDDATE IS 'ȯ�ҳ�¥';
+COMMENT ON COLUMN PAYMENT.REFUNDDATE IS '환불날짜';
 
-COMMENT ON COLUMN PAYMENT.PAYMENTKEY IS '���̸�ƮŰ';
+COMMENT ON COLUMN PAYMENT.PAYMENTKEY IS '페이먼트키';
 
-COMMENT ON COLUMN PAYMENT.USESTATUS IS '��ǰ��뿩��';
+COMMENT ON COLUMN PAYMENT.USESTATUS IS '상품사용여부';
 
-COMMENT ON COLUMN PAYMENT.COINLEFTNUM IS '�ܿ����ΰ���';
+COMMENT ON COLUMN PAYMENT.COINLEFTNUM IS '잔여코인갯수';
 
 CREATE UNIQUE INDEX PK_PAYMENT
-	ON PAYMENT (
-		PAYMENTID ASC
-	);
+    ON PAYMENT (
+                PAYMENTID ASC
+        );
 
 ALTER TABLE PAYMENT
-	ADD
-		CONSTRAINT PK_PAYMENT
-		PRIMARY KEY (
-			PAYMENTID
-		);
+    ADD
+        CONSTRAINT PK_PAYMENT
+            PRIMARY KEY (
+                         PAYMENTID
+                );
 
-/* ���λ�볻�� */
+/* 코인사용내역 */
 CREATE TABLE COIN (
-	COINUSEID raw(16) DEFAULT sys_guid() NOT NULL, /* ���ΰ���ID */
-	USERID raw(16) DEFAULT sys_guid() NOT NULL, /* ����ID */
-	COINUSENUM INTEGER, /* ��� ���ΰ��� */
-	COINUSEDATE DATE DEFAULT sysdate NOT NULL, /* ��볯¥ */
-	COINUSE VARCHAR(255), /* ��볻�� */
-	PRODUCTNAME VARCHAR(255) NOT NULL /* ���Ż�ǰ�� */
+                      COINUSEID raw(16) DEFAULT sys_guid() NOT NULL, /* 코인결제ID */
+                      USERID raw(16) DEFAULT sys_guid() NOT NULL, /* 유저ID */
+                      COINUSENUM INTEGER, /* 사용 코인갯수 */
+                      COINUSEDATE DATE DEFAULT sysdate NOT NULL, /* 사용날짜 */
+                      COINUSE VARCHAR(255), /* 사용내역 */
+                      PRODUCTNAME VARCHAR(255) NOT NULL /* 구매상품명 */
 );
 
-COMMENT ON TABLE COIN IS '���λ�볻��';
+COMMENT ON TABLE COIN IS '코인사용내역';
 
-COMMENT ON COLUMN COIN.COINUSEID IS '���ΰ���ID';
+COMMENT ON COLUMN COIN.COINUSEID IS '코인결제ID';
 
-COMMENT ON COLUMN COIN.USERID IS '����ID';
+COMMENT ON COLUMN COIN.USERID IS '유저ID';
 
-COMMENT ON COLUMN COIN.COINUSENUM IS '��� ���ΰ���';
+COMMENT ON COLUMN COIN.COINUSENUM IS '사용 코인갯수';
 
-COMMENT ON COLUMN COIN.COINUSEDATE IS '��볯¥';
+COMMENT ON COLUMN COIN.COINUSEDATE IS '사용날짜';
 
-COMMENT ON COLUMN COIN.COINUSE IS '��볻��';
+COMMENT ON COLUMN COIN.COINUSE IS '사용내역';
 
-COMMENT ON COLUMN COIN.PRODUCTNAME IS '���Ż�ǰ��';
+COMMENT ON COLUMN COIN.PRODUCTNAME IS '구매상품명';
 
 CREATE UNIQUE INDEX PK_COIN
-	ON COIN (
-		COINUSEID ASC
-	);
+    ON COIN (
+             COINUSEID ASC
+        );
 
 ALTER TABLE COIN
-	ADD
-		CONSTRAINT PK_COIN
-		PRIMARY KEY (
-			COINUSEID
-		);
+    ADD
+        CONSTRAINT PK_COIN
+            PRIMARY KEY (
+                         COINUSEID
+                );
 
-/* ������ǰ */
+/* 결제상품 */
 CREATE TABLE ITEM (
-	ITEMID raw(16) DEFAULT sys_guid() NOT NULL, /* ��ǰID */
-	ITEMNAME VARCHAR(255), /* ��ǰ�̸� */
-	ITEMPRICE INTEGER NOT NULL, /* ���� */
-	DISCOUNTRATE INTEGER /* ������ */
+                      ITEMID raw(16) DEFAULT sys_guid() NOT NULL, /* 상품ID */
+                      ITEMNAME VARCHAR(255), /* 상품이름 */
+                      ITEMPRICE INTEGER NOT NULL, /* 가격 */
+                      DISCOUNTRATE INTEGER /* 할인율 */
 );
 
-COMMENT ON TABLE ITEM IS '������ǰ';
+COMMENT ON TABLE ITEM IS '결제상품';
 
-COMMENT ON COLUMN ITEM.ITEMID IS '��ǰID';
+COMMENT ON COLUMN ITEM.ITEMID IS '상품ID';
 
-COMMENT ON COLUMN ITEM.ITEMNAME IS '��ǰ�̸�';
+COMMENT ON COLUMN ITEM.ITEMNAME IS '상품이름';
 
-COMMENT ON COLUMN ITEM.ITEMPRICE IS '����';
+COMMENT ON COLUMN ITEM.ITEMPRICE IS '가격';
 
-COMMENT ON COLUMN ITEM.DISCOUNTRATE IS '������';
+COMMENT ON COLUMN ITEM.DISCOUNTRATE IS '할인율';
 
 CREATE UNIQUE INDEX PK_ITEM
-	ON ITEM (
-		ITEMID ASC
-	);
+    ON ITEM (
+             ITEMID ASC
+        );
 
 ALTER TABLE ITEM
-	ADD
-		CONSTRAINT PK_ITEM
-		PRIMARY KEY (
-			ITEMID
-		);
+    ADD
+        CONSTRAINT PK_ITEM
+            PRIMARY KEY (
+                         ITEMID
+                );
 
-/* �Խ��� */
+/* 게시판 */
 CREATE TABLE BOARD (
-	BOARDID raw(16) DEFAULT sys_guid() NOT NULL, /* �Խñ�ID */
-	BOARDTITLE VARCHAR(255) NOT NULL, /* �Խñ����� */
-	BOARDNAME VARCHAR(255) NOT NULL, /* �Խ����̸� */
-	BOARDBODY CLOB NOT NULL, /* �Խñ۳��� */
-	USERID raw(16) DEFAULT sys_guid() NOT NULL, /* �ۼ���ID */
-	WRITEDATE DATE DEFAULT sysdate NOT NULL, /* �ۼ��� */
-	MODIFYDATE DATE DEFAULT sysdate, /* ������������ */
-	READCOUNT INTEGER DEFAULT 0 NOT NULL, /* ��ȸ�� */
-	REPYN VARCHAR(255) DEFAULT 'N' NOT NULL, /* ������� ���� */
-	ORIGINID raw(16) DEFAULT sys_guid(), /* ����ID */
-	REPORTYN VARCHAR(255) DEFAULT 'N' NOT NULL, /* �Ű����� */
-	HASHTAG VARCHAR2(4000) /* �ؽ��±� */
+                       BOARDID raw(16) DEFAULT sys_guid() NOT NULL, /* 게시글ID */
+                       BOARDTITLE VARCHAR(255) NOT NULL, /* 게시글제목 */
+                       BOARDNAME VARCHAR(255) NOT NULL, /* 게시판이름 */
+                       BOARDBODY CLOB NOT NULL, /* 게시글내용 */
+                       USERID raw(16) DEFAULT sys_guid() NOT NULL, /* 작성자ID */
+                       WRITEDATE DATE DEFAULT sysdate NOT NULL, /* 작성일 */
+                       MODIFYDATE DATE DEFAULT sysdate, /* 마지막수정일 */
+                       READCOUNT INTEGER DEFAULT 0 NOT NULL, /* 조회수 */
+                       REPYN VARCHAR(255) DEFAULT 'N' NOT NULL, /* 댓글존재 여부 */
+                       ORIGINID raw(16) DEFAULT sys_guid(), /* 원글ID */
+                       REPORTYN VARCHAR(255) DEFAULT 'N' NOT NULL, /* 신고여부 */
+                       HASHTAG VARCHAR2(4000) /* 해쉬태그 */
 );
 
-COMMENT ON TABLE BOARD IS '�Խ���';
+COMMENT ON TABLE BOARD IS '게시판';
 
-COMMENT ON COLUMN BOARD.BOARDID IS '�Խñ�ID';
+COMMENT ON COLUMN BOARD.BOARDID IS '게시글ID';
 
-COMMENT ON COLUMN BOARD.BOARDTITLE IS '�Խñ�����';
+COMMENT ON COLUMN BOARD.BOARDTITLE IS '게시글제목';
 
-COMMENT ON COLUMN BOARD.BOARDNAME IS '�Խ����̸�';
+COMMENT ON COLUMN BOARD.BOARDNAME IS '게시판이름';
 
-COMMENT ON COLUMN BOARD.BOARDBODY IS '�Խñ۳���';
+COMMENT ON COLUMN BOARD.BOARDBODY IS '게시글내용';
 
-COMMENT ON COLUMN BOARD.USERID IS '�ۼ���ID';
+COMMENT ON COLUMN BOARD.USERID IS '작성자ID';
 
-COMMENT ON COLUMN BOARD.WRITEDATE IS '�ۼ���';
+COMMENT ON COLUMN BOARD.WRITEDATE IS '작성일';
 
-COMMENT ON COLUMN BOARD.MODIFYDATE IS '������������';
+COMMENT ON COLUMN BOARD.MODIFYDATE IS '마지막수정일';
 
-COMMENT ON COLUMN BOARD.READCOUNT IS '��ȸ��';
+COMMENT ON COLUMN BOARD.READCOUNT IS '조회수';
 
-COMMENT ON COLUMN BOARD.REPYN IS '������� ����';
+COMMENT ON COLUMN BOARD.REPYN IS '댓글존재 여부';
 
-COMMENT ON COLUMN BOARD.ORIGINID IS '����ID';
+COMMENT ON COLUMN BOARD.ORIGINID IS '원글ID';
 
-COMMENT ON COLUMN BOARD.REPORTYN IS '�Ű�����';
+COMMENT ON COLUMN BOARD.REPORTYN IS '신고여부';
 
-COMMENT ON COLUMN BOARD.HASHTAG IS '�ؽ��±�';
+COMMENT ON COLUMN BOARD.HASHTAG IS '해쉬태그';
 
 CREATE UNIQUE INDEX PK_BOARD
-	ON BOARD (
-		BOARDID ASC
-	);
+    ON BOARD (
+              BOARDID ASC
+        );
 
 ALTER TABLE BOARD
-	ADD
-		CONSTRAINT PK_BOARD
-		PRIMARY KEY (
-			BOARDID
-		);
+    ADD
+        CONSTRAINT PK_BOARD
+            PRIMARY KEY (
+                         BOARDID
+                );
 
-/* �Խ����̸� */
+/* 게시판이름 */
 CREATE TABLE BOARDNAME (
-	BOARDNAME VARCHAR(255) NOT NULL, /* �Խ����̸� */
-	BOARDTYPE VARCHAR(255) NOT NULL, /* �Խ���Ÿ�� */
-	BOARDOPENDATE DATE DEFAULT sysdate /* �Խ��ǿ��³�¥ */
+                           BOARDNAME VARCHAR(255) NOT NULL, /* 게시판이름 */
+                           BOARDTYPE VARCHAR(255) NOT NULL, /* 게시판타입 */
+                           BOARDOPENDATE DATE DEFAULT sysdate /* 게시판오픈날짜 */
 );
 
-COMMENT ON TABLE BOARDNAME IS '�Խ����̸�';
+COMMENT ON TABLE BOARDNAME IS '게시판이름';
 
-COMMENT ON COLUMN BOARDNAME.BOARDNAME IS '�Խ����̸�';
+COMMENT ON COLUMN BOARDNAME.BOARDNAME IS '게시판이름';
 
-COMMENT ON COLUMN BOARDNAME.BOARDTYPE IS '�Խ���Ÿ��';
+COMMENT ON COLUMN BOARDNAME.BOARDTYPE IS '게시판타입';
 
-COMMENT ON COLUMN BOARDNAME.BOARDOPENDATE IS '�Խ��ǿ��³�¥';
+COMMENT ON COLUMN BOARDNAME.BOARDOPENDATE IS '게시판오픈날짜';
 
 CREATE UNIQUE INDEX PK_BOARDNAME
-	ON BOARDNAME (
-		BOARDNAME ASC
-	);
+    ON BOARDNAME (
+                  BOARDNAME ASC
+        );
 
 ALTER TABLE BOARDNAME
-	ADD
-		CONSTRAINT PK_BOARDNAME
-		PRIMARY KEY (
-			BOARDNAME
-		);
+    ADD
+        CONSTRAINT PK_BOARDNAME
+            PRIMARY KEY (
+                         BOARDNAME
+                );
 
-/* ä�ù� ��� */
+/* 채팅방 목록 */
 CREATE TABLE CHATROOM (
-	CAHTROOMID raw(16) DEFAULT sys_guid() NOT NULL, /* ü�ù�ID */
-	CHATROOMNAME VARCHAR(255) NOT NULL, /* ä�ù��̸� */
-	CHATROOMSTART DATE DEFAULT sysdate NOT NULL, /* ä�ù氳���ð� */
-	CHATROOMEND DATE DEFAULT sysdate, /* ä�ù�����ð� */
-	CHATROOMLIMIT INTEGER NOT NULL /* ä�ù� ���� */
+                          CAHTROOMID raw(16) DEFAULT sys_guid() NOT NULL, /* 체팅방ID */
+                          CHATROOMNAME VARCHAR(255) NOT NULL, /* 채팅방이름 */
+                          CHATROOMSTART DATE DEFAULT sysdate NOT NULL, /* 채팅방개설시간 */
+                          CHATROOMEND DATE DEFAULT sysdate, /* 채팅방종료시간 */
+                          CHATROOMLIMIT INTEGER NOT NULL /* 채팅방 정원 */
 );
 
-COMMENT ON TABLE CHATROOM IS 'ä�ù� ���';
+COMMENT ON TABLE CHATROOM IS '채팅방 목록';
 
-COMMENT ON COLUMN CHATROOM.CAHTROOMID IS 'ü�ù�ID';
+COMMENT ON COLUMN CHATROOM.CAHTROOMID IS '체팅방ID';
 
-COMMENT ON COLUMN CHATROOM.CHATROOMNAME IS 'ä�ù��̸�';
+COMMENT ON COLUMN CHATROOM.CHATROOMNAME IS '채팅방이름';
 
-COMMENT ON COLUMN CHATROOM.CHATROOMSTART IS 'ä�ù氳���ð�';
+COMMENT ON COLUMN CHATROOM.CHATROOMSTART IS '채팅방개설시간';
 
-COMMENT ON COLUMN CHATROOM.CHATROOMEND IS 'ä�ù�����ð�';
+COMMENT ON COLUMN CHATROOM.CHATROOMEND IS '채팅방종료시간';
 
-COMMENT ON COLUMN CHATROOM.CHATROOMLIMIT IS 'ä�ù� ����';
+COMMENT ON COLUMN CHATROOM.CHATROOMLIMIT IS '채팅방 정원';
 
 CREATE UNIQUE INDEX PK_CHATROOM
-	ON CHATROOM (
-		CAHTROOMID ASC
-	);
+    ON CHATROOM (
+                 CAHTROOMID ASC
+        );
 
 ALTER TABLE CHATROOM
-	ADD
-		CONSTRAINT PK_CHATROOM
-		PRIMARY KEY (
-			CAHTROOMID
-		);
+    ADD
+        CONSTRAINT PK_CHATROOM
+            PRIMARY KEY (
+                         CAHTROOMID
+                );
 
-/* ä�ù������� */
+/* 채팅방입장목록 */
 CREATE TABLE CHATROOMUSER (
-	USERID raw(16) DEFAULT sys_guid() NOT NULL, /* ����ID */
-	CAHTROOMID raw(16) DEFAULT sys_guid() NOT NULL, /* ü�ù�ID */
-	ENTRANCETIME DATE DEFAULT sysdate NOT NULL, /* ����ð� */
-	EXITTIME DATE DEFAULT sysdate /* ����ð� */
+                              USERID raw(16) DEFAULT sys_guid() NOT NULL, /* 유저ID */
+                              CAHTROOMID raw(16) DEFAULT sys_guid() NOT NULL, /* 체팅방ID */
+                              ENTRANCETIME DATE DEFAULT sysdate NOT NULL, /* 입장시간 */
+                              EXITTIME DATE DEFAULT sysdate /* 퇴장시간 */
 );
 
-COMMENT ON TABLE CHATROOMUSER IS 'ä�ù�������';
+COMMENT ON TABLE CHATROOMUSER IS '채팅방입장목록';
 
-COMMENT ON COLUMN CHATROOMUSER.USERID IS '����ID';
+COMMENT ON COLUMN CHATROOMUSER.USERID IS '유저ID';
 
-COMMENT ON COLUMN CHATROOMUSER.CAHTROOMID IS 'ü�ù�ID';
+COMMENT ON COLUMN CHATROOMUSER.CAHTROOMID IS '체팅방ID';
 
-COMMENT ON COLUMN CHATROOMUSER.ENTRANCETIME IS '����ð�';
+COMMENT ON COLUMN CHATROOMUSER.ENTRANCETIME IS '입장시간';
 
-COMMENT ON COLUMN CHATROOMUSER.EXITTIME IS '����ð�';
+COMMENT ON COLUMN CHATROOMUSER.EXITTIME IS '퇴장시간';
 
 CREATE UNIQUE INDEX PK_CHATROOMUSER
-	ON CHATROOMUSER (
-		USERID ASC,
-		CAHTROOMID ASC
-	);
+    ON CHATROOMUSER (
+                     USERID ASC,
+                     CAHTROOMID ASC
+        );
 
 ALTER TABLE CHATROOMUSER
-	ADD
-		CONSTRAINT PK_CHATROOMUSER
-		PRIMARY KEY (
-			USERID,
-			CAHTROOMID
-		);
+    ADD
+        CONSTRAINT PK_CHATROOMUSER
+            PRIMARY KEY (
+                         USERID,
+                         CAHTROOMID
+                );
 
-/* ���λ�ǰ */
+/* 코인상품 */
 CREATE TABLE PRODUCT (
-	PRODUCTNAME VARCHAR(255) NOT NULL, /* ���Ż�ǰ�� */
-	CONTENT VARCHAR(255), /* ��ǰ���� */
-	PRICE INTEGER /* ���ΰ��� */
+                         PRODUCTNAME VARCHAR(255) NOT NULL, /* 구매상품명 */
+                         CONTENT VARCHAR(255), /* 상품내용 */
+                         PRICE INTEGER /* 코인갯수 */
 );
 
-COMMENT ON TABLE PRODUCT IS '���λ�ǰ';
+COMMENT ON TABLE PRODUCT IS '코인상품';
 
-COMMENT ON COLUMN PRODUCT.PRODUCTNAME IS '���Ż�ǰ��';
+COMMENT ON COLUMN PRODUCT.PRODUCTNAME IS '구매상품명';
 
-COMMENT ON COLUMN PRODUCT.CONTENT IS '��ǰ����';
+COMMENT ON COLUMN PRODUCT.CONTENT IS '상품내용';
 
-COMMENT ON COLUMN PRODUCT.PRICE IS '���ΰ���';
+COMMENT ON COLUMN PRODUCT.PRICE IS '코인갯수';
 
 CREATE UNIQUE INDEX PK_PRODUCT
-	ON PRODUCT (
-		PRODUCTNAME ASC
-	);
+    ON PRODUCT (
+                PRODUCTNAME ASC
+        );
 
 ALTER TABLE PRODUCT
-	ADD
-		CONSTRAINT PK_PRODUCT
-		PRIMARY KEY (
-			PRODUCTNAME
-		);
+    ADD
+        CONSTRAINT PK_PRODUCT
+            PRIMARY KEY (
+                         PRODUCTNAME
+                );
 
-/* ä�� ģ����� */
+/* 채팅 친구목록 */
 CREATE TABLE CHATFRIEND (
-	USERID raw(16) DEFAULT sys_guid() NOT NULL, /* ȸ��ID */
-	USERID2 raw(16) DEFAULT sys_guid() NOT NULL, /* ģ��ID */
-	FRIENDDATE DATE DEFAULT sysdate /* ģ����Ͻð� */
+                            USERID raw(16) DEFAULT sys_guid() NOT NULL, /* 회원ID */
+                            USERID2 raw(16) DEFAULT sys_guid() NOT NULL, /* 친구ID */
+                            FRIENDDATE DATE DEFAULT sysdate /* 친구등록시간 */
 );
 
-COMMENT ON TABLE CHATFRIEND IS 'ä�� ģ�����';
+COMMENT ON TABLE CHATFRIEND IS '채팅 친구목록';
 
-COMMENT ON COLUMN CHATFRIEND.USERID IS 'ȸ��ID';
+COMMENT ON COLUMN CHATFRIEND.USERID IS '회원ID';
 
-COMMENT ON COLUMN CHATFRIEND.USERID2 IS 'ģ��ID';
+COMMENT ON COLUMN CHATFRIEND.USERID2 IS '친구ID';
 
-COMMENT ON COLUMN CHATFRIEND.FRIENDDATE IS 'ģ����Ͻð�';
+COMMENT ON COLUMN CHATFRIEND.FRIENDDATE IS '친구등록시간';
 
 CREATE UNIQUE INDEX PK_CHATFRIEND
-	ON CHATFRIEND (
-		USERID ASC,
-		USERID2 ASC
-	);
+    ON CHATFRIEND (
+                   USERID ASC,
+                   USERID2 ASC
+        );
 
 ALTER TABLE CHATFRIEND
-	ADD
-		CONSTRAINT PK_CHATFRIEND
-		PRIMARY KEY (
-			USERID,
-			USERID2
-		);
+    ADD
+        CONSTRAINT PK_CHATFRIEND
+            PRIMARY KEY (
+                         USERID,
+                         USERID2
+                );
 
-/* ���̽�Ÿ */
+/* 마이스타 */
 CREATE TABLE MYSTAR (
-	USERID raw(16) DEFAULT sys_guid(), /* ȸ��ID */
-	STARID INTEGER /* ��ŸID */
+                        USERID raw(16) DEFAULT sys_guid(), /* 회원ID */
+                        STARID INTEGER /* 스타ID */
 );
 
-COMMENT ON TABLE MYSTAR IS '���̽�Ÿ';
+COMMENT ON TABLE MYSTAR IS '마이스타';
 
-COMMENT ON COLUMN MYSTAR.USERID IS 'ȸ��ID';
+COMMENT ON COLUMN MYSTAR.USERID IS '회원ID';
 
-COMMENT ON COLUMN MYSTAR.STARID IS '��ŸID';
+COMMENT ON COLUMN MYSTAR.STARID IS '스타ID';
 
-/* ��Ÿ */
+/* 스타 */
 CREATE TABLE STAR (
-	STARID INTEGER NOT NULL, /* ��ŸID */
-	STARNAME VARCHAR(255) NOT NULL, /* ��Ÿ�̸� */
-	STARGENDER VARCHAR(255) NOT NULL, /* ���� */
-	STARJOB VARCHAR(255) /* ���� */
+                      STARID INTEGER NOT NULL, /* 스타ID */
+                      STARNAME VARCHAR(255) NOT NULL, /* 스타이름 */
+                      STARGENDER VARCHAR(255) NOT NULL, /* 성별 */
+                      STARJOB VARCHAR(255) /* 직업 */
 );
 
-COMMENT ON TABLE STAR IS '��Ÿ';
+COMMENT ON TABLE STAR IS '스타';
 
-COMMENT ON COLUMN STAR.STARID IS '��ŸID';
+COMMENT ON COLUMN STAR.STARID IS '스타ID';
 
-COMMENT ON COLUMN STAR.STARNAME IS '��Ÿ�̸�';
+COMMENT ON COLUMN STAR.STARNAME IS '스타이름';
 
-COMMENT ON COLUMN STAR.STARGENDER IS '����';
+COMMENT ON COLUMN STAR.STARGENDER IS '성별';
 
-COMMENT ON COLUMN STAR.STARJOB IS '����';
+COMMENT ON COLUMN STAR.STARJOB IS '직업';
 
 CREATE UNIQUE INDEX PK_STAR
-	ON STAR (
-		STARID ASC
-	);
+    ON STAR (
+             STARID ASC
+        );
 
 ALTER TABLE STAR
-	ADD
-		CONSTRAINT PK_STAR
-		PRIMARY KEY (
-			STARID
-		);
+    ADD
+        CONSTRAINT PK_STAR
+            PRIMARY KEY (
+                         STARID
+                );
 
 ALTER TABLE FILES
-	ADD
-		CONSTRAINT FK_MEMBER_TO_FILES
-		FOREIGN KEY (
-			USERID
-		)
-		REFERENCES MEMBER (
-			USERID
-		);
+    ADD
+        CONSTRAINT FK_MEMBER_TO_FILES
+            FOREIGN KEY (
+                         USERID
+                )
+                REFERENCES MEMBER (
+                                   USERID
+                    );
 
 ALTER TABLE FILES
-	ADD
-		CONSTRAINT FK_BOARDNAME_TO_FILES
-		FOREIGN KEY (
-			BOARDNAME
-		)
-		REFERENCES BOARDNAME (
-			BOARDNAME
-		);
+    ADD
+        CONSTRAINT FK_BOARDNAME_TO_FILES
+            FOREIGN KEY (
+                         BOARDNAME
+                )
+                REFERENCES BOARDNAME (
+                                      BOARDNAME
+                    );
 
 ALTER TABLE FILES
-	ADD
-		CONSTRAINT FK_BOARD_TO_FILES
-		FOREIGN KEY (
-			BOARDID
-		)
-		REFERENCES BOARD (
-			BOARDID
-		);
+    ADD
+        CONSTRAINT FK_BOARD_TO_FILES
+            FOREIGN KEY (
+                         BOARDID
+                )
+                REFERENCES BOARD (
+                                  BOARDID
+                    );
 
 ALTER TABLE CHAT
-	ADD
-		CONSTRAINT FK_MEMBER_TO_CHAT2
-		FOREIGN KEY (
-			SENDERID
-		)
-		REFERENCES MEMBER (
-			USERID
-		);
+    ADD
+        CONSTRAINT FK_MEMBER_TO_CHAT2
+            FOREIGN KEY (
+                         SENDERID
+                )
+                REFERENCES MEMBER (
+                                   USERID
+                    );
 
 ALTER TABLE CHAT
-	ADD
-		CONSTRAINT FK_MEMBER_TO_CHAT
-		FOREIGN KEY (
-			RECEIVERID
-		)
-		REFERENCES MEMBER (
-			USERID
-		);
+    ADD
+        CONSTRAINT FK_MEMBER_TO_CHAT
+            FOREIGN KEY (
+                         RECEIVERID
+                )
+                REFERENCES MEMBER (
+                                   USERID
+                    );
 
 ALTER TABLE CHATREPORT
-	ADD
-		CONSTRAINT FK_MEMBER_TO_CHATREPORT2
-		FOREIGN KEY (
-			CHATREPORTERID
-		)
-		REFERENCES MEMBER (
-			USERID
-		);
+    ADD
+        CONSTRAINT FK_MEMBER_TO_CHATREPORT2
+            FOREIGN KEY (
+                         CHATREPORTERID
+                )
+                REFERENCES MEMBER (
+                                   USERID
+                    );
 
 ALTER TABLE CHATREPORT
-	ADD
-		CONSTRAINT FK_MEMBER_TO_CHATREPORT
-		FOREIGN KEY (
-			USERID
-		)
-		REFERENCES MEMBER (
-			USERID
-		);
+    ADD
+        CONSTRAINT FK_MEMBER_TO_CHATREPORT
+            FOREIGN KEY (
+                         USERID
+                )
+                REFERENCES MEMBER (
+                                   USERID
+                    );
 
 ALTER TABLE LOOKS
-	ADD
-		CONSTRAINT FK_MEMBER_TO_LOOKS
-		FOREIGN KEY (
-			USERID
-		)
-		REFERENCES MEMBER (
-			USERID
-		);
+    ADD
+        CONSTRAINT FK_MEMBER_TO_LOOKS
+            FOREIGN KEY (
+                         USERID
+                )
+                REFERENCES MEMBER (
+                                   USERID
+                    );
 
 ALTER TABLE BLOCK
-	ADD
-		CONSTRAINT FK_MEMBER_TO_BLOCK3
-		FOREIGN KEY (
-			BLOCKEDEMAIL,
-			BLOCKEDPHONE
-		)
-		REFERENCES MEMBER (
-			USEREMAIL,
-			USERPHONE
-		);
+    ADD
+        CONSTRAINT FK_MEMBER_TO_BLOCK3
+            FOREIGN KEY (
+                         BLOCKEDEMAIL,
+                         BLOCKEDPHONE
+                )
+                REFERENCES MEMBER (
+                                   USEREMAIL,
+                                   USERPHONE
+                    );
 
 ALTER TABLE BLOCK
-	ADD
-		CONSTRAINT FK_MEMBER_TO_BLOCK2
-		FOREIGN KEY (
-			BLOCKEDUSERID
-		)
-		REFERENCES MEMBER (
-			USERID
-		);
+    ADD
+        CONSTRAINT FK_MEMBER_TO_BLOCK2
+            FOREIGN KEY (
+                         BLOCKEDUSERID
+                )
+                REFERENCES MEMBER (
+                                   USERID
+                    );
 
 ALTER TABLE BLOCK
-	ADD
-		CONSTRAINT FK_MEMBER_TO_BLOCK
-		FOREIGN KEY (
-			USERID
-		)
-		REFERENCES MEMBER (
-			USERID
-		);
+    ADD
+        CONSTRAINT FK_MEMBER_TO_BLOCK
+            FOREIGN KEY (
+                         USERID
+                )
+                REFERENCES MEMBER (
+                                   USERID
+                    );
 
 ALTER TABLE PAYMENT
-	ADD
-		CONSTRAINT FK_ITEM_TO_PAYMENT
-		FOREIGN KEY (
-			ITEMID
-		)
-		REFERENCES ITEM (
-			ITEMID
-		);
+    ADD
+        CONSTRAINT FK_ITEM_TO_PAYMENT
+            FOREIGN KEY (
+                         ITEMID
+                )
+                REFERENCES ITEM (
+                                 ITEMID
+                    );
 
 ALTER TABLE PAYMENT
-	ADD
-		CONSTRAINT FK_MEMBER_TO_PAYMENT
-		FOREIGN KEY (
-			USERID
-		)
-		REFERENCES MEMBER (
-			USERID
-		);
+    ADD
+        CONSTRAINT FK_MEMBER_TO_PAYMENT
+            FOREIGN KEY (
+                         USERID
+                )
+                REFERENCES MEMBER (
+                                   USERID
+                    );
 
 ALTER TABLE COIN
-	ADD
-		CONSTRAINT FK_MEMBER_TO_COIN
-		FOREIGN KEY (
-			USERID
-		)
-		REFERENCES MEMBER (
-			USERID
-		);
+    ADD
+        CONSTRAINT FK_MEMBER_TO_COIN
+            FOREIGN KEY (
+                         USERID
+                )
+                REFERENCES MEMBER (
+                                   USERID
+                    );
 
 ALTER TABLE COIN
-	ADD
-		CONSTRAINT FK_PRODUCT_TO_COIN
-		FOREIGN KEY (
-			PRODUCTNAME
-		)
-		REFERENCES PRODUCT (
-			PRODUCTNAME
-		);
+    ADD
+        CONSTRAINT FK_PRODUCT_TO_COIN
+            FOREIGN KEY (
+                         PRODUCTNAME
+                )
+                REFERENCES PRODUCT (
+                                    PRODUCTNAME
+                    );
 
 ALTER TABLE BOARD
-	ADD
-		CONSTRAINT FK_BOARDNAME_TO_BOARD
-		FOREIGN KEY (
-			BOARDNAME
-		)
-		REFERENCES BOARDNAME (
-			BOARDNAME
-		);
+    ADD
+        CONSTRAINT FK_BOARDNAME_TO_BOARD
+            FOREIGN KEY (
+                         BOARDNAME
+                )
+                REFERENCES BOARDNAME (
+                                      BOARDNAME
+                    );
 
 ALTER TABLE BOARD
-	ADD
-		CONSTRAINT FK_MEMBER_TO_BOARD
-		FOREIGN KEY (
-			USERID
-		)
-		REFERENCES MEMBER (
-			USERID
-		);
+    ADD
+        CONSTRAINT FK_MEMBER_TO_BOARD
+            FOREIGN KEY (
+                         USERID
+                )
+                REFERENCES MEMBER (
+                                   USERID
+                    );
 
 ALTER TABLE CHATROOMUSER
-	ADD
-		CONSTRAINT FK_MEMBER_TO_CHATROOMUSER
-		FOREIGN KEY (
-			USERID
-		)
-		REFERENCES MEMBER (
-			USERID
-		);
+    ADD
+        CONSTRAINT FK_MEMBER_TO_CHATROOMUSER
+            FOREIGN KEY (
+                         USERID
+                )
+                REFERENCES MEMBER (
+                                   USERID
+                    );
 
 ALTER TABLE CHATROOMUSER
-	ADD
-		CONSTRAINT FK_CHATROOM_TO_CHATROOMUSER
-		FOREIGN KEY (
-			CAHTROOMID
-		)
-		REFERENCES CHATROOM (
-			CAHTROOMID
-		);
+    ADD
+        CONSTRAINT FK_CHATROOM_TO_CHATROOMUSER
+            FOREIGN KEY (
+                         CAHTROOMID
+                )
+                REFERENCES CHATROOM (
+                                     CAHTROOMID
+                    );
 
 ALTER TABLE CHATFRIEND
-	ADD
-		CONSTRAINT FK_MEMBER_TO_CHATFRIEND
-		FOREIGN KEY (
-			USERID
-		)
-		REFERENCES MEMBER (
-			USERID
-		);
+    ADD
+        CONSTRAINT FK_MEMBER_TO_CHATFRIEND
+            FOREIGN KEY (
+                         USERID
+                )
+                REFERENCES MEMBER (
+                                   USERID
+                    );
 
 ALTER TABLE CHATFRIEND
-	ADD
-		CONSTRAINT FK_MEMBER_TO_CHATFRIEND2
-		FOREIGN KEY (
-			USERID2
-		)
-		REFERENCES MEMBER (
-			USERID
-		);
+    ADD
+        CONSTRAINT FK_MEMBER_TO_CHATFRIEND2
+            FOREIGN KEY (
+                         USERID2
+                )
+                REFERENCES MEMBER (
+                                   USERID
+                    );
 
 ALTER TABLE MYSTAR
-	ADD
-		CONSTRAINT FK_MEMBER_TO_MYSTAR
-		FOREIGN KEY (
-			USERID
-		)
-		REFERENCES MEMBER (
-			USERID
-		);
+    ADD
+        CONSTRAINT FK_MEMBER_TO_MYSTAR
+            FOREIGN KEY (
+                         USERID
+                )
+                REFERENCES MEMBER (
+                                   USERID
+                    );
 
 ALTER TABLE MYSTAR
-	ADD
-		CONSTRAINT FK_STAR_TO_MYSTAR
-		FOREIGN KEY (
-			STARID
-		)
-		REFERENCES STAR (
-			STARID
-		);
+    ADD
+        CONSTRAINT FK_STAR_TO_MYSTAR
+            FOREIGN KEY (
+                         STARID
+                )
+                REFERENCES STAR (
+                                 STARID
+                    );
