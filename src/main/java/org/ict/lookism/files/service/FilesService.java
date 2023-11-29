@@ -28,23 +28,22 @@ public class FilesService{
     }
 
     
-    public List<Files> selectUserFilesList(Long userId) {
+    public List<Files> selectUserFilesList(String userId) {
         List<Files> files = filesRepository.findByUserId(userId);
         return files;
     }
 
     
-    public List<Files> selectBoardFilesList(Long boardId) {
+    public List<Files> selectBoardFilesList(String boardId) {
         List<Files> files = filesRepository.findByBoardId(boardId);
         return files;
     }
 
     
-    public Optional<Files> selectFile(Long fileId) {
-//        List<String> ids = Arrays.asList(fileId);
-//        Optional<Files> files = filesRepository.findById(fileId);
-//        return files;
-        return null;
+    public Optional<Files> selectFile(String fileId) {
+        List<String> ids = Arrays.asList(fileId);
+        Optional<Files> files = filesRepository.findById(fileId);
+        return files;
     }
 
     

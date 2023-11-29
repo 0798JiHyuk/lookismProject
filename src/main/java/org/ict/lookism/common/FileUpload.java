@@ -14,7 +14,7 @@ import java.nio.file.Files;
 @Slf4j
 public class FileUpload {
 
-    public static String uploadImageFile(Long userId, Long boardId, String originalFileName, byte[] fileData) throws Exception {
+    public static String uploadImageFile(String userId, String boardId, String originalFileName, byte[] fileData) throws Exception {
         if(fileData.length > 0) {
             TikaConfig tc = new TikaConfig();
             Metadata md = new Metadata();

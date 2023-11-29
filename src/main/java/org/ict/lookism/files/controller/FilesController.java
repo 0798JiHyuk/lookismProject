@@ -29,17 +29,17 @@ public class FilesController {
     }
 
     @GetMapping("/user/{userId}")
-    public ResponseEntity<List<Files>> selectUserFilesList(@PathVariable("userId") Long userId){
+    public ResponseEntity<List<Files>> selectUserFilesList(@PathVariable("userId") String userId){
         return new ResponseEntity<>(filesService.selectUserFilesList(userId), HttpStatus.OK);
     }
 
     @GetMapping("/board/{boardId}")
-    public ResponseEntity<List<Files>> selectBoardFilesList(@PathVariable("boardId") Long boardId){
+    public ResponseEntity<List<Files>> selectBoardFilesList(@PathVariable("boardId") String boardId){
         return new ResponseEntity<>(filesService.selectBoardFilesList(boardId), HttpStatus.OK);
     }
 
     @GetMapping("/{fileId}")
-    public ResponseEntity<Optional<Files>> selectFile(@PathVariable("fileId") Long fileId){
+    public ResponseEntity<Optional<Files>> selectFile(@PathVariable("fileId") String fileId){
         return new ResponseEntity<>(filesService.selectFile(fileId), HttpStatus.OK);
     }
 
@@ -65,15 +65,15 @@ public class FilesController {
 //                                             ,@RequestPart LinkedMultiValueMap<String, String> formData
                                              ) throws Exception{
 //        log.info(formData.toString());
-        Long userId = Long.valueOf(1);
-        Long boardId = Long.valueOf(1);
+        String userId = "aa710ba1-8c83-4764-8084-ace06583253c";
+        String boardId = "board3";
         String originalFileName = "test.jpg";
 
         FileUpload.uploadImageFile(userId,boardId,originalFileName,file.getBytes());
 
         Files files = new Files();
         files.setUserId(userId);
-        files.setBoardId(boardId);
+//        files.setBoardId(boardId);
         files.setFileName(originalFileName);
         filesService.insertFile(files);
 

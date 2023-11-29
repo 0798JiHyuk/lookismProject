@@ -11,7 +11,6 @@ import org.hibernate.annotations.GenericGenerator;
 import org.springframework.data.annotation.LastModifiedDate;
 
 import java.sql.Timestamp;
-import java.util.UUID;
 
 
 @Data
@@ -29,15 +28,15 @@ public class Files {
             strategy = "org.hibernate.id.UUIDGenerator"
     )
     private String fileId;
-    private Long userId;
-    private Long boardId;
+    private String userId;
+    private String boardId;
     private String boardName;
     private String fileName;
 
     @JsonFormat(pattern = "yyyy-MM-dd")
     @CreationTimestamp
     private Timestamp regDate;
-    private String delYn = "n";
+    private String delYn = "N";
     @JsonFormat(pattern = "yyyy-MM-dd")
     @LastModifiedDate
     private String delDate;

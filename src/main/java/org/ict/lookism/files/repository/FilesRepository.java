@@ -6,8 +6,8 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.List;
 
 public interface FilesRepository extends JpaRepository<Files, String> {
-    public List<Files> findByUserId(Long userId);
-    public List<Files> findByBoardId(Long boardId);
+    public List<Files> findByUserId(String userId);
+    public List<Files> findByBoardId(String boardId);
 
 
 }
