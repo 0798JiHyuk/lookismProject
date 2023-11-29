@@ -1,19 +1,46 @@
 package org.ict.lookism.member.service;
 
+import org.ict.lookism.exception.UnauthorizedException;
 import org.ict.lookism.member.entity.Member;
+import org.ict.lookism.member.repository.MemberRepository;
+import org.ict.lookism.member.vo.MemberVo;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
-public interface MemberService {
+@Service
+@Transactional
+public class MemberService {
 
-    int selectLogin(Member member);
+	@Autowired
+	private MemberRepository memberRepository;
 
-    int insertMember(Member member);
+	@Autowired
+	private PasswordEncoder passwordEncoder;
 
-    int updateMember(Member member);
+	public Member signUp(MemberVo memberVo) {
+		Member member = new Member();
+		member.setUserPwd(passwordEncoder.encode(memberVo.getUserPwd()));
+		member.setUserName(memberVo.getUserName());
 
+		return memberRepository.save(member);
+	}
 
-    int deleteMember(Member member);
+	public Member signIn(String userEmail, String userPwd) {
+		Member member = memberRepository.findByUserEmail(userEmail);
 
-    List<Member> selectMemberList(Member member);
+		if (member != null && passwordEncoder.matches(userPwd, member.getUserPwd())) {
+			return member;
+		}
+
+		// 로그인 실패 시 예외 처리
+		throw new UnauthorizedException("Invalid email or password");
+	}
+
+	public List<Member> getAllMembers() {
+		return memberRepository.findAll();
+	}
 }
