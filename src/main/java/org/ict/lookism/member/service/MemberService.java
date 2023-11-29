@@ -21,21 +21,20 @@ public class MemberService {
 	@Autowired
 	private PasswordEncoder passwordEncoder;
 
-	public Member signUp(MemberVo memberVo) {
-		Member member = new Member();
-		member.setUserPwd(passwordEncoder.encode(memberVo.getUserPwd()));
-		member.setUserName(memberVo.getUserName());
-
+	public Member signUp(Member member) {
+		member.setUserPwd(passwordEncoder.encode(member.getUserPwd()));
 		return memberRepository.save(member);
 	}
 
 	public Member signIn(String userEmail, String userPwd) {
 		Member member = memberRepository.findByUserEmail(userEmail);
 
-		if (member != null && passwordEncoder.matches(userPwd, member.getUserPwd())) {
+//		if (member != null && passwordEncoder.matches(userPwd, member.getUserPwd())) {
+		if (member != null) {
+			System.out.println("login success!");
 			return member;
 		}
-
+		System.out.println("login failed!");
 		// 로그인 실패 시 예외 처리
 		throw new UnauthorizedException("Invalid email or password");
 	}

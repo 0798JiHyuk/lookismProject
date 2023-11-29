@@ -33,8 +33,8 @@ public class MemberController {
 	private MemberService memberService;
 
 	@PostMapping("/signup")
-	public ResponseEntity<String> signUp(@Validated @RequestBody MemberVo memberVo) {
-		Member createdMember = memberService.signUp(memberVo);
+	public ResponseEntity<String> signUp(@Validated @RequestBody Member member) {
+		Member createdMember = memberService.signUp(member);
 		return new ResponseEntity<>("Member created with ID: " + createdMember.getUserId(), HttpStatus.CREATED);
 	}
 
