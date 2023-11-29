@@ -22,9 +22,10 @@ import java.util.UUID;
 public class Files {
 
     @Id
-    private String fileId = UUID.randomUUID().toString().replace("-", "").toUpperCase();
-    private String userId;
-    private String boardId;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long fileId;
+    private Long userId;
+    private Long boardId;
     private String boardName;
     private String fileName;
 
