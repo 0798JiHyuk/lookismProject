@@ -2,10 +2,12 @@ package org.ict.lookism.files.controller;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.ict.lookism.common.FileUpload;
 import org.ict.lookism.files.entity.Files;
 import org.ict.lookism.files.service.FilesService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -21,7 +23,6 @@ import java.util.Optional;
 public class FilesController {
 
     private final FilesService filesService;
-
     @GetMapping
     public ResponseEntity<List<Files>> selectAllList() throws Exception{
         return new ResponseEntity<>(filesService.selectAllList(), HttpStatus.OK);
@@ -34,7 +35,7 @@ public class FilesController {
 
     @GetMapping("/board/{boardId}")
     public ResponseEntity<List<Files>> selectBoardFilesList(@PathVariable("boardId") String boardId){
-        return new ResponseEntity<>(filesService.selectUserFilesList(boardId), HttpStatus.OK);
+        return new ResponseEntity<>(filesService.selectBoardFilesList(boardId), HttpStatus.OK);
     }
 
     @GetMapping("/{fileId}")
@@ -60,7 +61,22 @@ public class FilesController {
         return null;
     }
     @PostMapping(value = "/upload")
-    public ResponseEntity<String> uploadFile(MultipartFile file) throws Exception{
+    public ResponseEntity<String> uploadFile(@RequestParam("file") MultipartFile file
+//                                             ,@RequestPart LinkedMultiValueMap<String, String> formData
+                                             ) throws Exception{
+//        log.info(formData.toString());
+        String userId = "user3";
+        String boardId = "board3";
+        String originalFileName = "test.jpg";
+
+        FileUpload.uploadImageFile(userId,boardId,originalFileName,file.getBytes());
+
+        Files files = new Files();
+        files.setUserId(userId);
+        files.setBoardId(boardId);
+        files.setFileName(originalFileName);
+        filesService.insertFile(files);
+
         return new ResponseEntity<String>("OK", HttpStatus.CREATED);
     }
 
