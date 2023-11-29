@@ -1,5 +1,6 @@
 package org.ict.lookism.files.service;
 
+import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.ict.lookism.files.entity.Files;
@@ -8,7 +9,10 @@ import org.ict.lookism.files.repository.FilesRepositoryCustom;
 import org.springframework.stereotype.Service;
 
 import java.sql.Timestamp;
+import java.util.Arrays;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Optional;
 
 @Slf4j
 @Service
@@ -19,22 +23,28 @@ public class FilesService{
 
 
     public List<Files> selectAllList() {
-        return null;
+        List<Files> files = filesRepository.findAll();
+        return files;
     }
 
     
     public List<Files> selectUserFilesList(String userId) {
-        return null;
+        log.info(userId);
+        List<Files> files = filesRepository.findByUserId(userId);
+        return files;
     }
 
     
     public List<Files> selectBoardFilesList(String boardId) {
-        return null;
+        List<Files> files = filesRepository.findByUserId(boardId);
+        return files;
     }
 
     
-    public List<Files> selectFile(String fileId) {
-        return null;
+    public Optional<Files> selectFile(String fileId) {
+        List<String> ids = Arrays.asList(fileId);
+        Optional<Files> files = filesRepository.findById(fileId);
+        return files;
     }
 
     

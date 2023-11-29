@@ -1,6 +1,7 @@
 package org.ict.lookism.files.controller;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.ict.lookism.files.entity.Files;
 import org.ict.lookism.files.service.FilesService;
 import org.springframework.http.HttpStatus;
@@ -10,7 +11,9 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.sql.Timestamp;
 import java.util.List;
+import java.util.Optional;
 
+@Slf4j
 @RequiredArgsConstructor
 @RestController
 @CrossOrigin
@@ -25,18 +28,18 @@ public class FilesController {
     }
 
     @GetMapping("/user/{userId}")
-    public List<Files> selectUserFilesList(String userId){
-        return null;
+    public ResponseEntity<List<Files>> selectUserFilesList(@PathVariable("userId") String userId){
+        return new ResponseEntity<>(filesService.selectUserFilesList(userId), HttpStatus.OK);
     }
 
     @GetMapping("/board/{boardId}")
-    public List<Files> selectBoardFilesList(String boardId){
-        return null;
+    public ResponseEntity<List<Files>> selectBoardFilesList(@PathVariable("boardId") String boardId){
+        return new ResponseEntity<>(filesService.selectUserFilesList(boardId), HttpStatus.OK);
     }
 
     @GetMapping("/{fileId}")
-    public List<Files> selectFile(String fileId){
-        return null;
+    public ResponseEntity<Optional<Files>> selectFile(@PathVariable("fileId") String fileId){
+        return new ResponseEntity<>(filesService.selectFile(fileId), HttpStatus.OK);
     }
 
     @GetMapping("/names/{fileName}")
