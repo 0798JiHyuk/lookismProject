@@ -1003,3 +1003,5 @@ update member set adminlv = 'n';
 update member set userpwd = '$2a$10$ntdO1EzfMn2yt2DHzUVgWOcXh1tFb4piMFqhc029GSlgBAl37JWK.';
 COMMIT;
 
+
+
