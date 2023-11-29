@@ -1,7 +1,8 @@
 <template>
-  <div>
-    <router-link to="/main">메인 페이지로 이동</router-link>
-    <router-link to="/error">에러 페이지로 이동</router-link>
+  <div class="navbar">
+    <p><router-link to="/main" class="nav-link">Lookism</router-link></p>
+    <p><router-link to="/error" class="nav-link">testErrorPage</router-link></p>
+    <p><router-link to="/login" class="nav-link">Login</router-link></p>
   </div>
 </template>
 
@@ -12,5 +13,18 @@ export default {
 </script>
 
 <style>
+.navbar {
+  background-color: #FFC7F1;
+  padding: 15px;
+}
 
+.nav-link {
+  color: black;
+  margin: 0 10px;
+  text-decoration: none;
+}
+
+.nav-link:hover {
+  color: lightgray;
+}
 </style>

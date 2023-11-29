@@ -39,8 +39,9 @@ public class MemberController {
 	}
 
 	@PostMapping("/signin")
-	public ResponseEntity<String> signIn(@RequestParam String userEmail, @RequestParam String userPwd) {
-		Member loginMember = memberService.signIn(userEmail, userPwd);
+	public ResponseEntity<String> signIn(@RequestBody Map<String, String> credentials) {
+		String userEmail = credentials.get("userEmail");
+		String userPwd = credentials.get("userPwd");
 		// JWT 토큰 생성 및 반환 로직 추가
 		return new ResponseEntity<>("Member signed in successfully", HttpStatus.OK);
 	}
