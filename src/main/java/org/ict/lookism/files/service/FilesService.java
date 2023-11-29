@@ -29,7 +29,6 @@ public class FilesService{
 
     
     public List<Files> selectUserFilesList(String userId) {
-        log.info(userId);
         List<Files> files = filesRepository.findByUserId(userId);
         return files;
     }

@@ -7,10 +7,10 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.GenericGenerator;
 import org.springframework.data.annotation.LastModifiedDate;
 
 import java.sql.Timestamp;
-import java.util.UUID;
 
 
 @Data
@@ -22,7 +22,12 @@ import java.util.UUID;
 public class Files {
 
     @Id
-    private String fileId = UUID.randomUUID().toString().replace("-", "").toUpperCase();
+    @GeneratedValue(generator = "UUID")
+    @GenericGenerator(
+            name = "UUID",
+            strategy = "org.hibernate.id.UUIDGenerator"
+    )
+    private String fileId;
     private String userId;
     private String boardId;
     private String boardName;
@@ -31,7 +36,7 @@ public class Files {
     @JsonFormat(pattern = "yyyy-MM-dd")
     @CreationTimestamp
     private Timestamp regDate;
-    private String delYn = "n";
+    private String delYn = "N";
     @JsonFormat(pattern = "yyyy-MM-dd")
     @LastModifiedDate
     private String delDate;

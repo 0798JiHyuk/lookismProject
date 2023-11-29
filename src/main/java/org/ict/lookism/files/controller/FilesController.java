@@ -65,7 +65,7 @@ public class FilesController {
 //                                             ,@RequestPart LinkedMultiValueMap<String, String> formData
                                              ) throws Exception{
 //        log.info(formData.toString());
-        String userId = "user3";
+        String userId = "aa710ba1-8c83-4764-8084-ace06583253c";
         String boardId = "board3";
         String originalFileName = "test.jpg";
 
@@ -73,7 +73,7 @@ public class FilesController {
 
         Files files = new Files();
         files.setUserId(userId);
-        files.setBoardId(boardId);
+//        files.setBoardId(boardId);
         files.setFileName(originalFileName);
         filesService.insertFile(files);
 
