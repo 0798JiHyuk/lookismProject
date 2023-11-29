@@ -11,6 +11,5 @@ import java.util.List;
 @Repository
 public interface ItemRepository extends JpaRepository<Item, String>{
 
-	/*public List<Item> selectList();
-	public int updateDiscItem(String itemId);*/
+
 }

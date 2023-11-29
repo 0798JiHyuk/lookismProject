@@ -1,13 +1,13 @@
 package org.ict.lookism.chatroomuser.repository;
 
 import org.ict.lookism.chatroomuser.entity.ChatRoomUser;
-import org.ict.lookism.member.vo.Member;
+import org.ict.lookism.member.vo.MemberVo;
 
 import java.util.List;
 
 public interface ChatRoomUserRepository {
 
-    public List<Member> selectChatRoom(String chatRoomId);
+    public List<MemberVo> selectChatRoom(String chatRoomId);
 
     public int insertChatRoomUser(ChatRoomUser chatRoomUser);
 
