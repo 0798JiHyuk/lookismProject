@@ -1,8 +1,10 @@
 package org.ict.lookism;
 
+import org.hibernate.id.uuid.UuidGenerator;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.stereotype.Component;
+import org.hibernate.id.UUIDGenerator;
 
 @SpringBootTest
 @Component

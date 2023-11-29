@@ -36,7 +36,7 @@ public class FilesService{
 
     
     public List<Files> selectBoardFilesList(String boardId) {
-        List<Files> files = filesRepository.findByUserId(boardId);
+        List<Files> files = filesRepository.findByBoardId(boardId);
         return files;
     }
 
@@ -64,7 +64,8 @@ public class FilesService{
 
     
     public int insertFile(Files files) {
-        return 0;
+        filesRepository.save(files);
+        return 1;
     }
 
     
