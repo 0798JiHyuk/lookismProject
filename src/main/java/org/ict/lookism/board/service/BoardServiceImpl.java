@@ -31,13 +31,13 @@ public class BoardServiceImpl implements BoardService{
     @Override
     @Transactional(readOnly = true)
     public Board read(String boardid) throws Exception {
-        return repository.getOne(Long.parseLong(boardid));
+        return repository.getReferenceById(Long.parseLong(boardid));
     }
 
     @Override
     @Transactional
     public void modify(Board board) throws Exception {
-        Board boardEntity = repository.getOne(Long.parseLong(board.getBoardid()));
+        Board boardEntity = repository.getReferenceById(Long.parseLong(board.getBoardid()));
 
         boardEntity.setBoardtitle(board.getBoardtitle());
         boardEntity.setBoardbody(board.getBoardbody());
