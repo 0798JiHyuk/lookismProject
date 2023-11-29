@@ -1000,6 +1000,6 @@ insert into member (USERID, USEREMAIL, USERPHONE, USERPWD, USERNAME, USERBIRTH, 
 insert into member (USERID, USEREMAIL, USERPHONE, USERPWD, USERNAME, USERBIRTH, USERENROLLDATE, USERHEIGHT, USERWEIGHT, USERCIGARETTE, USERDRINKING, USERRELIGION, USERMBTI, USERLEVEL, ADMINLV) values (sys_guid(), 'cspinneyrr@wsj.com', '920-902-0199', 'a', 'Chrysa Spinney', '2019/10/21', '2023/04/09', 163, 103, 'n', '주4회이상', '기타', 'INFP', 'r3', 'n');
 
 update member set adminlv = 'n';
-
-COMMIT
+update member set userpwd = '$2a$10$ntdO1EzfMn2yt2DHzUVgWOcXh1tFb4piMFqhc029GSlgBAl37JWK.';
+COMMIT;
 

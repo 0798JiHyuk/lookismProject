@@ -30,8 +30,9 @@ public class MemberService {
 		Member member = memberRepository.findByUserEmail(userEmail);
 
 //		if (member != null && passwordEncoder.matches(userPwd, member.getUserPwd())) {
-		if (member != null) {
+		if (member != null && passwordEncoder.matches(userPwd, member.getUserPwd())) {
 			System.out.println("login success!");
+			System.out.println(member.getUserPwd());
 			return member;
 		}
 		System.out.println("login failed!");
