@@ -8,6 +8,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.GenericGenerator;
+import org.springframework.data.annotation.LastModifiedDate;
 
 import java.sql.Timestamp;
 
@@ -19,6 +20,7 @@ import java.sql.Timestamp;
 @Entity
 @Table(name="files")
 public class Files {
+
     @Id
     @GeneratedValue(generator = "UUID")
     @GenericGenerator(
@@ -34,6 +36,9 @@ public class Files {
     @JsonFormat(pattern = "yyyy-MM-dd")
     @CreationTimestamp
     private Timestamp regDate;
-    private String delYn;
+    private String delYn = "N";
+    @JsonFormat(pattern = "yyyy-MM-dd")
+    @LastModifiedDate
     private String delDate;
+
 }
