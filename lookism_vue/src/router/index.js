@@ -11,6 +11,7 @@ import { createRouter, createWebHistory } from 'vue-router'
 import ErrorPage from '@/views/common/Error.vue'
 import MainSection from '@/views/common/Main.vue'
 import login from "@/views/member/login.vue";
+import enroll from "@/views/member/enroll.vue";
 
 //각 페이지(컴포넌트)에 대한 url path 지정
 //routes 는 고정변수임
@@ -29,6 +30,11 @@ const routes = [
         path: '/login',
         name: 'login', //임의대로 지정
         component: login
+    },
+    {
+        path: '/enroll',
+        name: 'enroll', //임의대로 지정
+        component: enroll
     },
 ] //url path 배열
 
