@@ -51,9 +51,7 @@ export default {
         this.$router.push('/main');
       } catch (error) {
         console.error('로그인 실패:', error.response.data);
-        // 로그인 실패 시 오류 메시지를 설정
         this.loginError = '이메일 또는 비밀번호가 올바르지 않습니다.';
-        // 일정 시간 후에 오류 메시지를 초기화하여 다시 표시되지 않도록 설정
         setTimeout(() => {
           this.loginError = '';
         }, 5000); // 5000 밀리초(5초) 후에 초기화

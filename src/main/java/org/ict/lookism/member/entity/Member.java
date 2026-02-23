@@ -1,5 +1,6 @@
 package org.ict.lookism.member.entity;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -25,8 +26,10 @@ public class Member /* implements java.io.Serializable */ {
 	private String userName;
 	@Column(name="userBirth")
 	private Date userBirth;
-	@Column(name="userEnrolldate")
-	private Date userEnrolldate;
+	@Column(name="userEnrolldate", nullable = false)
+	@Temporal(TemporalType.DATE)
+	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
+	private java.util.Date userEnrolldate;
 	@Column(name="userEmail")
 	private String userEmail;
 	@Column(name="userHeight")

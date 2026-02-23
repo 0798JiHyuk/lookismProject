@@ -21,7 +21,6 @@ public class ChatController {
 
     private SimpMessagingTemplate template;
 
-
     @MessageMapping("/send/message")
     public void sendMessage(String senderId, String receiverId, String message){
         System.out.println("Received Message: "+ message);
