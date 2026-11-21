@@ -1,0 +1,10 @@
+{
+  "name": "lookism-web",
+  "private": true,
+  "version": "0.2.0",
+  "type": "module",
+  "engines": { "node": "^20.19.0 || >=22.12.0" },
+  "scripts": { "dev": "vite", "build": "vite build" },
+  "dependencies": { "vue": "3.5.46", "vue-router": "4.6.4" },
+  "devDependencies": { "@vitejs/plugin-vue": "6.0.11", "vite": "7.3.8" }
+}

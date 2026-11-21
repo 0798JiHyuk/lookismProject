@@ -1,49 +1,52 @@
 package org.ict.lookism.member.service;
 
-import org.ict.lookism.exception.UnauthorizedException;
+import java.nio.charset.StandardCharsets;
+import java.util.Locale;
+import org.ict.lookism.member.controller.SignupRequest;
 import org.ict.lookism.member.entity.Member;
 import org.ict.lookism.member.repository.MemberRepository;
-import org.ict.lookism.member.vo.MemberVo;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-
-import java.util.List;
+import org.springframework.web.server.ResponseStatusException;
 
 @Service
-@Transactional
-public class MemberService {
+public class MemberService implements UserDetailsService {
+    private final MemberRepository members;
+    private final PasswordEncoder passwords;
 
-	@Autowired
-	private MemberRepository memberRepository;
+    public MemberService(MemberRepository members, PasswordEncoder passwords) {
+        this.members = members;
+        this.passwords = passwords;
+    }
 
-	@Autowired
-	private PasswordEncoder passwordEncoder;
+    public void signUp(String email, SignupRequest request) {
+        if (request.userPwd().getBytes(StandardCharsets.UTF_8).length > 72) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Password exceeds 72 bytes");
+        }
+        if (members.existsByEmail(email)) {
+            throw new ResponseStatusException(HttpStatus.CONFLICT, "Email is already registered");
+        }
+        members.saveAndFlush(new Member(email, passwords.encode(request.userPwd()), request));
+    }
 
-	public Member signUp(Member member) {
-		member.setUserPwd(passwordEncoder.encode(member.getUserPwd()));
-		return memberRepository.save(member);
-	}
+    @Override
+    public UserDetails loadUserByUsername(String input) {
+        Member member = members.findByEmail(normalizeEmail(input))
+                .orElseThrow(() -> new UsernameNotFoundException("Unknown account"));
+        return User.withUsername(member.getEmail()).password(member.getPasswordHash()).roles("MEMBER").build();
+    }
 
-	public Member signIn(String userEmail, String userPwd) {
-		Member member = memberRepository.findByUserEmail(userEmail);
+    public Member getMember(String email) {
+        return members.findByEmail(email)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.UNAUTHORIZED));
+    }
 
-//		if (member != null && passwordEncoder.matches(userPwd, member.getUserPwd())) {
-		if (member != null && passwordEncoder.matches(userPwd, member.getUserPwd())) {
-			System.out.println("login success!");
-			return member;
-		}
-		System.out.println("login failed!");
-		// 로그인 실패 시 예외 처리
-		throw new UnauthorizedException("Invalid email or password");
-	}
-
-	public List<Member> getAllMembers() {
-		return memberRepository.findAll();
-	}
-
-	public Member getMember(String email) {
-		return memberRepository.findByUserEmail(email);
-	}
+    public static String normalizeEmail(String email) {
+        return email.trim().toLowerCase(Locale.ROOT);
+    }
 }

@@ -1,201 +1,101 @@
-<template>
-  <div>
-    <h2>Lookism</h2>
-    <h3>새로운 인연을 경험하세요</h3>
-    <br>
-    <p class="font-s1">회원가입을 진행해주세요.</p>
-    <form @submit.prevent="fnEnroll">
-      <p>
-        <label for="userEmail">이메일:</label>
-        <input type="text" id="userEmail" v-model="userEmail" required>
-        <button v-on:click="sendEmail">이메일인증</button>
-      </p>
-      <div>
-        <input type="text" placeholder="인증번호를 입력해주세요." @input="updateEmailCheck" />
-        <button v-on:click="emailcheck">확인</button>
-      </div>
-      <p>
-        <label for="userPwd">비밀번호:</label>
-        <input type="password" id="userPwd" v-model="userPwd" required>
-      </p>
-      <p>
-        <label for="userPwd2">비밀번호 확인:</label>
-        <input type="password" id="userPwd2" v-model="userPwd2" required>
-      </p>
-      <p v-if="passwordsMatch">
-        비밀번호가 일치합니다.
-      </p>
-      <p v-else>
-        <span style="color: red;">비밀번호가 일치하지 않습니다.</span>
-      </p>
-      <p>
-        <label for="userName">이름:</label>
-        <input type="text" id="userName" v-model="userName" required>
-      </p>
-      <p>
-        <label for="userBirth">생년월일:</label>
-        <input type="date" id="userBirth" v-model="userBirth" required>
-      </p>
-      <p>
-        <label for="userHeight">키:</label>
-        <input type="text" id="userHeight" v-model="userHeight" required>
-      </p>
-      <p>
-        <label for="userPhone">전화번호:</label>
-        <input type="tel" id="userPhone" v-model="userPhone" required>
-      </p>
-      <p>
-        <label for="userWeight">몸무게:</label>
-        <input type="text" id="userWeight" v-model="userWeight" required>
-      </p>
-      <p>
-        <label for="userCigarette">흡연여부:</label>
-        <select id="userCigarette" v-model="userCigarette" required>
-          <option value="">선택하세요</option>
-          <option value="흡연자">흡연자</option>
-          <option value="비흡연자">비흡연자</option>
-        </select>
-      </p>
-      <p>
-        <label for="userDrinking">음주빈도:</label>
-        <select id="userDrinking" v-model="userDrinking" required>
-          <option value="">선택하세요</option>
-          <option value="주1회이상">주1회이상</option>
-          <option value="주4회이상">주4회이상</option>
-          <option value="거의마시지않음">거의마시지않음</option>
-        </select>
-      </p>
-      <p>
-        <label for="userReligion">종교:</label>
-        <select id="userReligion" v-model="userReligion" required>
-          <option value="">선택하세요</option>
-          <option value="기독교">기독교</option>
-          <option value="천주교">천주교</option>
-          <option value="이슬람교">이슬람교</option>
-          <option value="이슬람교">불교</option>
-          <option value="무교">없음</option>
-          <option value="기타">기타</option>
-        </select>
-      </p>
-      <p>
-        <label for="userMbti">MBTI:</label>
-        <input type="text" id="userMbti" v-model="userMBTI">
-      </p>
-      <div>
-        <label for="userProfile">간단한 자기소개:</label>
-        <br>
-        <p class="font-s3">ex) 여행을 좋아하고 집에서 책읽는 것을 좋아합니다.</p>
-        <br>
-        <input type="text" id="userProfile" v-model="userProfile">
-      </div>
-      <p>
-        <button type="submit">회원가입</button>
-      </p>
-    </form>
-    <div>
-      <router-link to="/login">로그인하러가기</router-link>
-    </div>
-  </div>
-</template>
+<script setup>
+import { onMounted, reactive, ref } from 'vue'
+import { request, submit } from '../../api.js'
 
-<script>
-import axios from 'axios';
-export default {
-  name: 'enrollPage',
-  data() {
-    return {
-      userId: '',
-      userPwd: '',
-      userName: '',
-      userBirth: '',
-      userEnrolldate: '',
-      userEmail: '',
-      userHeight: '',
-      userPhone: '',
-      userWeight: '',
-      userCigarette: '',
-      userDrinking: '',
-      userReligion: '',
-      userProfile: '',
-      userMBTI: '',
-      userLevel: '',
-      adminLV: '',
-    };
-  },
+const account = reactive({ userEmail: '', userName: '', userPwd: '', emailCode: '' })
+const fields = reactive({})
+const confirmation = ref('')
+const verificationRequired = ref(true)
+const configured = ref(false)
+const busy = ref(false)
+const created = ref(false)
+const status = ref('')
 
-  methods: {
-    sendEmail(){
-      const self = this;
-      if(this.email == ''){
-        alert('이메일을 입력해주세요.')
-      }else{
-        const form = new FormData();
-        form.append('email',self.email);
-        self.$axios.post('주소',form)
-            .then(function(res){
-              if(res.data.exist){
-                alert(res.data.exist)
-              }else if(res.status == 200){
-                alert('이메일이 발송되었습니다.');
-                const key =  res.data.key;
-                alert(key);
-                self.emailKey = key;
-              }else{
-                alert('잘못된 이메일입니다.');
-              }
-            })
-      }
-    },
-    emailcheck(){
-      const self = this;
-      if (self.echeck === self.emailkey){
-        alert('확인완료');
-        this.isVisable = true;
-      }else{
-        alert('인증번호가 일치하지 않습니다.');
-      }
-    },
-    async fnEnroll() {
-      try {
-        const response = await axios.post('http://localhost:9999/members/signup', {
-          userId: this.userId,
-          userName: this.userName,
-          userBirth: this.userBirth,
-          userEnrolldate: this.userEnrolldate,
-          userEmail: this.userEmail,
-          userHeight: this.userHeight,
-          userPhone: this.userPhone,
-          userWeight: this.userWeight,
-          userCigarette: this.userCigarette,
-          userDrinking: this.userDrinking,
-          userReligion: this.userReligion,
-          userProfile: this.userProfile,
-          userMBTI: this.userMBTI,
-          userPwd: this.userPwd,
-          userLevel: this.userLevel,
-          adminLV: this.adminLV,
-        });
-        console.log(response.data);
-        this.$router.push('/login');
-      } catch (error) {
-        console.error('회원가입 실패 : ', error.response.data);
-      }
-    },
-  },
-  computed: {
-    passwordsMatch() {
-      // 비밀번호와 비밀번호 확인이 일치하는지 확인
-      return this.userPwd === this.userPwd2;
-    },
-  },
-};
+onMounted(async () => {
+  try {
+    const response = await request('/members/signup-options')
+    if (!response.ok) throw new Error('가입 설정을 불러오지 못했습니다.')
+    verificationRequired.value = (await response.json()).emailVerificationRequired
+    configured.value = true
+  } catch (error) {
+    status.value = error.message
+  }
+})
+
+async function sendCode() {
+  busy.value = true
+  status.value = ''
+  try {
+    const query = new URLSearchParams({ email: account.userEmail })
+    const response = await submit('/members/email?' + query)
+    if (response.status === 429) throw new Error('잠시 후 다시 요청해 주세요.')
+    if (response.status === 400) throw new Error('올바른 이메일 주소를 입력해 주세요.')
+    if (!response.ok) throw new Error('인증번호를 보내지 못했습니다.')
+    status.value = '이메일로 전송된 인증번호를 입력해 주세요.'
+  } catch (error) {
+    status.value = error.message
+  } finally {
+    busy.value = false
+  }
+}
+
+async function signUp() {
+  status.value = ''
+  if (account.userPwd !== confirmation.value) {
+    status.value = '비밀번호가 서로 다릅니다.'
+    return
+  }
+  if (new TextEncoder().encode(account.userPwd).length > 72) {
+    status.value = '비밀번호는 UTF-8 기준 72바이트 이내로 입력해 주세요.'
+    return
+  }
+  busy.value = true
+  try {
+    const profile = Object.fromEntries(Object.entries(fields).filter(([, value]) => value !== ''))
+    const response = await submit('/members/signup', { ...account, ...profile })
+    if (response.status === 409) throw new Error('이미 등록된 이메일입니다.')
+    if (response.status === 400) throw new Error('가입 정보와 이메일 인증번호를 확인해 주세요.')
+    if (!response.ok) throw new Error('회원가입에 실패했습니다.')
+    account.userPwd = ''
+    confirmation.value = ''
+    created.value = true
+  } catch (error) {
+    status.value = error.message
+  } finally {
+    busy.value = false
+  }
+}
 </script>
 
-<style>
-.font-s1{
-  font-size: 9px;
-}
-.font-s3{
-  font-size: 11px;
-}
-</style>
+<template>
+  <section>
+    <h1>회원가입</h1>
+    <p v-if="created">가입이 완료되었습니다. <RouterLink to="/">로그인하기</RouterLink></p>
+    <form v-else @submit.prevent="signUp">
+      <div class="email-row">
+        <label>이메일<input v-model.trim="account.userEmail" type="email" autocomplete="username" maxlength="254" required /></label>
+        <button v-if="verificationRequired" type="button" :disabled="!configured || busy || !account.userEmail" @click="sendCode">인증번호 받기</button>
+      </div>
+      <label v-if="verificationRequired">인증번호<input v-model.trim="account.emailCode" inputmode="numeric" autocomplete="one-time-code" pattern="[0-9]{8}" maxlength="8" required /></label>
+      <label>이름<input v-model.trim="account.userName" autocomplete="name" maxlength="80" required /></label>
+      <label>비밀번호<input v-model="account.userPwd" type="password" autocomplete="new-password" minlength="8" maxlength="72" required /></label>
+      <label>비밀번호 확인<input v-model="confirmation" type="password" autocomplete="new-password" minlength="8" maxlength="72" required /></label>
+      <details>
+        <summary>추가 프로필</summary>
+        <div>
+          <label>생년월일<input v-model="fields.userBirth" type="date" autocomplete="bday" /></label>
+          <label>전화번호<input v-model.trim="fields.userPhone" type="tel" autocomplete="tel" maxlength="30" /></label>
+          <label>키 (cm)<input v-model.number="fields.userHeight" type="number" min="1" max="300" /></label>
+          <label>몸무게 (kg)<input v-model.number="fields.userWeight" type="number" min="1" max="500" /></label>
+          <label>흡연<input v-model.trim="fields.userCigarette" maxlength="30" /></label>
+          <label>음주<input v-model.trim="fields.userDrinking" maxlength="30" /></label>
+          <label>종교<input v-model.trim="fields.userReligion" maxlength="30" /></label>
+          <label>MBTI<input v-model.trim="fields.userMBTI" maxlength="4" /></label>
+          <label>소개<textarea v-model.trim="fields.userProfile" maxlength="500"></textarea></label>
+        </div>
+      </details>
+      <button :disabled="!configured || busy">가입하기</button>
+    </form>
+    <p v-if="status" role="status">{{ status }}</p>
+  </section>
+</template>

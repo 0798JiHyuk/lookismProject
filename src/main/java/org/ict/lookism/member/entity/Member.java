@@ -1,56 +1,60 @@
 package org.ict.lookism.member.entity;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import java.time.LocalDate;
+import java.time.Instant;
+import org.ict.lookism.member.controller.SignupRequest;
 
-import java.sql.Date;
-
-@Data  // @ToString, @EqualsAndHashCode, @Getter/@Setter, @RequiredArgsConstructor 모두 사용한 것과 같음
-@NoArgsConstructor
-@AllArgsConstructor
-@Builder                              // 클래스로 컴파일 되라.
-@Table(name = "Member")                // 자동으로 생성될 테이블 이름이 BOARD 이다
 @Entity
-public class Member /* implements java.io.Serializable */ {
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name="userid")
-	private String userId;
-	@Column(name="userPwd")
-	private String userPwd;
-	@Column(name="userName")
-	private String userName;
-	@Column(name="userBirth")
-	private Date userBirth;
-	@Column(name="userEnrolldate", nullable = false)
-	@Temporal(TemporalType.DATE)
-	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
-	private java.util.Date userEnrolldate;
-	@Column(name="userEmail")
-	private String userEmail;
-	@Column(name="userHeight")
-	private int userHeight;
-	@Column(name="userPhone")
-	private String userPhone;
-	@Column(name="userWeight")
-	private int userWeight;
-	@Column(name="userCigarette")
-	private String userCigarette;
-	@Column(name="userDrinking")
-	private String userDrinking;
-	@Column(name="userReligion")
-	private String userReligion;
-	@Column(name="userProfile")
-	private String userProfile;
-	@Column(name="userMBTI")
-	private String userMBTI;
-	@Column(name="userLevel")
-	private String userLevel;
-	@Column(name="adminLV")
-	private String adminLV;
+@Table(name = "lookism_members")
+public class Member {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
+    @Column(nullable = false, unique = true, length = 254)
+    private String email;
+
+    @Column(nullable = false, length = 60)
+    private String passwordHash;
+
+    @Column(nullable = false, length = 80)
+    private String name;
+
+    @Column(nullable = false)
+    private Instant enrolledAt;
+
+    private LocalDate birth;
+    private String phone;
+    private Integer height;
+    private Integer weight;
+    private String cigarette;
+    private String drinking;
+    private String religion;
+    private String mbti;
+
+    @Column(length = 500)
+    private String profile;
+
+    protected Member() {}
+
+    public Member(String email, String passwordHash, SignupRequest request) {
+        this.email = email;
+        this.passwordHash = passwordHash;
+        this.name = request.userName().trim();
+        this.enrolledAt = Instant.now();
+        this.birth = request.userBirth();
+        this.phone = request.userPhone();
+        this.height = request.userHeight();
+        this.weight = request.userWeight();
+        this.cigarette = request.userCigarette();
+        this.drinking = request.userDrinking();
+        this.religion = request.userReligion();
+        this.mbti = request.userMBTI();
+        this.profile = request.userProfile();
+    }
+
+    public String getEmail() { return email; }
+    public String getPasswordHash() { return passwordHash; }
+    public String getName() { return name; }
 }

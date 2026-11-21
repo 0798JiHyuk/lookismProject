@@ -1,29 +1,41 @@
 package org.ict.lookism.config;
 
+import jakarta.servlet.DispatcherType;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.savedrequest.NullRequestCache;
 
 @Configuration
 public class SecurityConfig {
-
-    // ✅ 비밀번호 암호화 빈
     @Bean
-    public PasswordEncoder passwordEncoder() {
+    PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
 
-    // ✅ 필수 보안 설정 (HttpSecurity 주입용)
     @Bean
-    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-        http
-                .csrf(csrf -> csrf.disable()) // CSRF 비활성화
+    SecurityFilterChain securityFilterChain(HttpSecurity http) {
+        return http
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/**").permitAll() // 모든 요청 허용 (테스트용)
-                );
-        return http.build();
+                        .dispatcherTypeMatchers(DispatcherType.ERROR).permitAll()
+                        .requestMatchers(HttpMethod.GET, "/", "/index.html", "/assets/**",
+                                "/members/csrf", "/members/signup-options").permitAll()
+                        .requestMatchers(HttpMethod.POST, "/members/signup", "/members/signin", "/members/email").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/members/me").authenticated()
+                        .anyRequest().denyAll())
+                .requestCache(cache -> cache.requestCache(new NullRequestCache()))
+                .exceptionHandling(errors -> errors.authenticationEntryPoint((request, response, failure) ->
+                        response.setStatus(401)))
+                .formLogin(login -> login.loginProcessingUrl("/members/signin")
+                        .usernameParameter("userEmail").passwordParameter("userPwd")
+                        .successHandler((request, response, authentication) -> response.setStatus(204))
+                        .failureHandler((request, response, failure) -> response.setStatus(401)))
+                .logout(logout -> logout.logoutUrl("/members/signout")
+                        .logoutSuccessHandler((request, response, authentication) -> response.setStatus(204)))
+                .build();
     }
 }

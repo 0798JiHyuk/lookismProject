@@ -1,33 +1,35 @@
-# Lookism · 회원 가입 및 매칭 서비스 개발 기록
+# Lookism 0.2.0
 
-Spring Boot와 Vue를 이용한 이상형 매칭 서비스 프로젝트의 일부 구현을 보관합니다. 현재 저장소에는 회원가입·로그인 화면, 회원 서비스, 이메일 관련 컨트롤러와 보안 설정이 있습니다.
+한국ICT인재개발원에서 만든 이상형 매칭 프로젝트의 회원 기능을 정리한 버전입니다. Spring Boot 4.0, Java 17, Vue 3, Vite를 사용합니다.
 
-## 기술적 구성
-- Backend: Spring Boot, Spring Security, BCrypt
-- Frontend: Vue 회원가입·로그인 화면
-- 외부 연동: 이메일 발송 설정
-- 경로: `src/main/java/org/ict/lookism/`, `lookism_vue/src/`
+## 로컬 실행
 
-## 구현을 살펴볼 파일
-| 파일 | 관심 지점 |
-|---|---|
-| member/service/MemberService.java | 비밀번호 해싱 및 로그인 검증 |
-| member/controller/MemberController.java | 회원·이메일 요청 처리 |
-| config/SecurityConfig.java | 보안 필터 및 비밀번호 인코더 |
-| lookism_vue/src/views/member/Enroll.vue | 가입·이메일 UI |
-| lookism_vue/src/views/member/Login.vue | 로그인 UI |
+JDK 17과 Node.js 22.12 이상이 필요합니다. Windows PowerShell에서 실행합니다.
 
-## 현재 실행 상태
-현재 트리에는 Gradle Wrapper와 Vue의 package.json이 없고, MemberRepository·MemberVo·UnauthorizedException 등 참조 클래스도 누락되어 있습니다. 따라서 새로 clone한 상태에서 전체 빌드와 실행을 재현할 수 없습니다.
+```powershell
+npm.cmd --prefix lookism_vue ci
+npm.cmd --prefix lookism_vue run build
+.\gradlew.bat bootRun
+```
 
-기존 README의 `./gradlew bootRun`, `npm run serve` 안내는 필요한 파일 복원 이후 검증해야 합니다.
+브라우저에서 [localhost:9999](http://localhost:9999/)를 엽니다. 기본 저장소는 로컬 H2 파일인 `data/lookism.mv.db`입니다. 프론트엔드를 개발할 때는 백엔드를 켜 두고 `npm.cmd --prefix lookism_vue run dev`를 실행합니다. Vite가 회원 API 요청을 로컬 백엔드에 전달합니다.
 
-## 복원 순서
-1. 원본 프로젝트에서 누락된 소스·빌드 설정을 복원합니다.
-2. DB 및 메일 환경 설정을 로컬 환경 변수로 구성합니다.
-3. 서버 빌드 → 회원가입 → 로그인 → 이메일 확인 흐름을 검증합니다.
-4. 매칭 기능은 실제 구현이 확인된 뒤 문서에 추가합니다.
+## 이메일 인증
 
-## 개선 기록 및 한계
-로그인 성공 시 비밀번호 해시를 콘솔에 출력하던 코드를 제거했습니다.
-현재 SecurityConfig는 모든 요청을 허용하는 테스트 설정입니다. 인증·인가가 완성된 서비스로 제출하기 전에 보호 경로와 토큰 검증을 구현·검증해야 합니다.
+기본값은 이메일 인증 사용입니다. 메일을 전송하려면 `SMTP_HOST`, `SMTP_PORT`, `SMTP_USERNAME`, `SMTP_PASSWORD`, `SMTP_FROM`을 SMTP 제공자에 맞게 설정하세요. 기본 포트는 587이고 SMTP 인증과 STARTTLS가 필요합니다. 로컬에서 메일 서버 없이 가입 흐름을 확인할 때는 백엔드를 실행하기 전에 다음 환경 변수를 설정할 수 있습니다.
+
+```powershell
+$env:EMAIL_VERIFICATION_REQUIRED = 'false'
+```
+
+인증번호는 서버 세션에서 이메일 주소와 함께 관리하며 10분 후 만료됩니다. 세션마다 발송 간격과 인증 실패 횟수를 제한합니다. 인증번호는 이메일로만 전송합니다.
+
+## 0.2.0 변경 사항
+
+- 빠져 있던 Gradle 실행 파일, 회원 저장소, Vue 빌드 설정을 복원했습니다.
+- Spring Security 세션 로그인과 CSRF 보호를 적용했습니다. 로그인한 사용자는 자기 프로필을 조회하고 로그아웃할 수 있습니다.
+- 비밀번호는 BCrypt로 저장합니다. 이메일 중복과 가입 입력을 검증하고 API 응답에 비밀번호 해시를 포함하지 않습니다.
+- DB 및 SMTP 설정을 환경 변수로 옮겼습니다. 이 버전은 로컬 H2의 새 회원 테이블을 사용합니다. 기존 Oracle 데이터 이전은 별도 작업입니다.
+- 기존 기본 브랜치에 미완성으로 남은 채팅 API와 오래된 프론트 번들을 정리했습니다. 실행 범위는 회원가입, 로그인, 이메일 인증, 프로필 조회입니다.
+
+Git에 남아 있는 예전 설정의 DB·SMTP·JWT 자격 증명이 실제 서비스에서 사용됐다면 해당 서비스에서 폐기하고 교체해야 합니다. 외부 공개 시 HTTPS와 보안 쿠키를 활성화하고 발송량 및 로그인 시도 제한을 서버 또는 프록시 수준에서 설정하세요.
