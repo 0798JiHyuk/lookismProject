@@ -1,12 +1,13 @@
 <script setup>
 import { onMounted, ref } from 'vue'
 import { request, submit } from '../../api.js'
+import PasswordField from '../../components/PasswordField.vue'
 
 const email = ref('')
 const password = ref('')
 const profile = ref(null)
 const status = ref('')
-const busy = ref(true)
+const pending = ref('profile')
 
 async function loadProfile() {
   const response = await request('/members/me', { cache: 'no-store' })
@@ -17,11 +18,12 @@ async function loadProfile() {
 onMounted(async () => {
   try { await loadProfile() }
   catch (error) { status.value = error.message }
-  finally { busy.value = false }
+  finally { pending.value = '' }
 })
 
 async function signIn() {
-  busy.value = true
+  if (pending.value) return
+  pending.value = 'login'
   status.value = ''
   try {
     const response = await submit('/members/signin', new URLSearchParams({
@@ -35,12 +37,13 @@ async function signIn() {
     status.value = error.message
   } finally {
     password.value = ''
-    busy.value = false
+    pending.value = ''
   }
 }
 
 async function signOut() {
-  busy.value = true
+  if (pending.value) return
+  pending.value = 'logout'
   status.value = ''
   try {
     if (!(await submit('/members/signout')).ok) throw new Error('로그아웃에 실패했습니다.')
@@ -48,26 +51,33 @@ async function signOut() {
   } catch (error) {
     status.value = error.message
   } finally {
-    busy.value = false
+    pending.value = ''
   }
 }
 </script>
 
 <template>
-  <section>
+  <section class="member-card" aria-labelledby="login-title">
     <template v-if="profile">
-      <h1>{{ profile.name }}님</h1>
-      <p>{{ profile.email }}</p>
-      <button type="button" :disabled="busy" @click="signOut">로그아웃</button>
+      <h1 id="login-title">{{ profile.name }}님</h1>
+      <p class="intro profile-email">{{ profile.email }}</p>
+      <button class="secondary" type="button" :disabled="!!pending" @click="signOut">
+        {{ pending === 'logout' ? '로그아웃 중…' : '로그아웃' }}
+      </button>
     </template>
     <template v-else>
-      <h1>로그인</h1>
-      <form @submit.prevent="signIn">
-        <label>이메일<input v-model.trim="email" type="email" autocomplete="username" maxlength="254" required /></label>
-        <label>비밀번호<input v-model="password" type="password" autocomplete="current-password" maxlength="72" required /></label>
-        <button :disabled="busy">로그인</button>
+      <h1 id="login-title">로그인</h1>
+      <p v-if="pending === 'profile'" class="intro" role="status">로그인 상태 확인 중…</p>
+      <form v-else class="form-grid" :aria-busy="pending === 'login'" @submit.prevent="signIn">
+        <div class="field">
+          <label for="login-email">이메일</label>
+          <input id="login-email" v-model.trim="email" type="email" autocomplete="username" maxlength="254" :disabled="!!pending" required />
+        </div>
+        <PasswordField id="login-password" v-model="password" label="비밀번호" autocomplete="current-password" :disabled="!!pending" />
+        <button :disabled="!!pending">{{ pending === 'login' ? '로그인 중…' : '로그인' }}</button>
       </form>
+      <p v-if="pending !== 'profile'" class="form-footer">계정이 없나요? <RouterLink to="/signup">회원가입</RouterLink></p>
     </template>
-    <p v-if="status" role="status">{{ status }}</p>
+    <p class="notice notice-error" role="alert">{{ status }}</p>
   </section>
 </template>
