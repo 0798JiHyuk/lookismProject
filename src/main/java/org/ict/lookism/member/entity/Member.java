@@ -54,6 +54,7 @@ public class Member {
         this.profile = request.userProfile();
     }
 
+    public Long getId() { return id; }
     public String getEmail() { return email; }
     public String getPasswordHash() { return passwordHash; }
     public String getName() { return name; }

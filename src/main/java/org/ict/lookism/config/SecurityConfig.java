@@ -26,6 +26,7 @@ public class SecurityConfig {
                                 "/members/csrf", "/members/signup-options").permitAll()
                         .requestMatchers(HttpMethod.POST, "/members/signup", "/members/signin", "/members/email").permitAll()
                         .requestMatchers(HttpMethod.GET, "/members/me").authenticated()
+                        .requestMatchers("/boards", "/boards/**", "/discovery", "/discovery/**").authenticated()
                         .anyRequest().denyAll())
                 .requestCache(cache -> cache.requestCache(new NullRequestCache()))
                 .exceptionHandling(errors -> errors.authenticationEntryPoint((request, response, failure) ->

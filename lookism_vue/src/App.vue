@@ -5,6 +5,8 @@
       <nav aria-label="회원 메뉴">
         <RouterLink to="/">로그인</RouterLink>
         <RouterLink to="/signup">회원가입</RouterLink>
+        <RouterLink to="/board">게시판</RouterLink>
+        <RouterLink to="/discovery">회원 탐색</RouterLink>
       </nav>
     </header>
     <main id="main">
@@ -62,9 +64,19 @@ button.secondary:hover:not(:disabled) { background: #e7dcf3; }
 .details-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: .85rem; padding: .35rem 0 .85rem; }
 .full { grid-column: 1 / -1; }
 .profile-email { overflow-wrap: anywhere; }
+.feature-card { width: min(100%, 46rem); }
+.feature-card form, .entry-list { margin-top: 1.25rem; }
+.entry-list { display: grid; gap: .85rem; padding: 0; list-style: none; }
+.entry { padding: 1rem; border: 1px solid var(--border); border-radius: .75rem; overflow-wrap: anywhere; }
+.entry h2 { margin: 0 0 .4rem; font-size: 1.1rem; }
+.entry p { white-space: pre-wrap; line-height: 1.55; }
+.action-row { display: flex; gap: .5rem; align-items: center; flex-wrap: wrap; }
+.check-label { display: flex; align-items: center; gap: .5rem; }
+.check-label input { width: auto; min-height: auto; }
 :focus-visible { outline: 3px solid #7950ae; outline-offset: 2px; }
 @media (max-width: 440px) {
-  .site-header { min-height: 4rem; }
+  .site-header { justify-content: center; min-height: 4rem; flex-wrap: wrap; padding: .65rem 0; }
+  nav { justify-content: center; flex-wrap: wrap; }
   .details-grid, .email-control { grid-template-columns: minmax(0, 1fr); }
 }
 </style>

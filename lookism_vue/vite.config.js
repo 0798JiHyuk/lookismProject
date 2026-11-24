@@ -6,6 +6,8 @@ export default defineConfig({
   server: {
     proxy: {
       '/members': 'http://127.0.0.1:9999',
+      '/boards': 'http://127.0.0.1:9999',
+      '/discovery': 'http://127.0.0.1:9999',
     },
   },
 })
